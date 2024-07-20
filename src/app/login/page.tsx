@@ -78,8 +78,8 @@ const Page = () => {
           <Link href={'/login/register'}>I&apos;m a New User</Link>
         </div>
         <div className='flex flex-col'>
-          <Link href={'/login/forgotpassword'}>Forgot Password?</Link>
-          <div className='flex justify-end mt-3 h-10 '>
+          <Link href={'/login/forgot-password'}>Forgot Password?</Link>
+          <div className='flex justify-end mt-3 h-10'>
             <CustomButton
               onClick={handleLogin}
               variant='contained'
