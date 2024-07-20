@@ -8,7 +8,7 @@ import {
   CustomOtpField,
 } from '@/app/ui/custom-components'
 
-const Register = () => {
+const ForgotPassword = () => {
   const [otp, setOtp] = useState(['', '', '', ''])
   const [isConfirmedNumber, setIsconfirmedNumer] = useState(false)
 
@@ -111,4 +111,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default ForgotPassword
