@@ -26,6 +26,7 @@ const body = {
 
 const Page = () => {
   const [isNotification, setIsnotification] = useState(true)
+  const [isTouchedField, setIsTouchedFiled] = useState([false])
 
   useEffect(() => {
     setIsnotification(requestNotificationPermission())
@@ -41,6 +42,10 @@ const Page = () => {
     console.log(response)
   }
 
+  const handleBlur = (field: number) => {
+    setIsTouchedFiled(prev => ({ ...prev, [field]: true }))
+  }
+
   return (
     <>
       <form className='w-full'>
@@ -51,6 +56,11 @@ const Page = () => {
               variant='outlined'
               fullWidth
               type='number'
+              error={isTouchedField[0]}
+              helperText={isTouchedField[0] && 'Mobile is required'}
+              onBlur={() => {
+                handleBlur(0)
+              }}
             />
           </div>
           <div className='mb-6'>
@@ -59,6 +69,9 @@ const Page = () => {
               variant='outlined'
               type='password'
               fullWidth
+              error={isTouchedField[1]}
+              onBlur={() => handleBlur(1)}
+              helperText={isTouchedField[1] && 'Password is required'}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>

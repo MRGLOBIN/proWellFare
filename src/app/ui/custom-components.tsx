@@ -17,6 +17,11 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
     '&.Mui-focused fieldset': {
       border: `2px solid ${theme.palette.primary.main}`,
     },
+    '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'red',
+      border: '2px solid red',
+      color: 'red',
+    },
   },
   '& .MuiInputLabel-outlined': {
     color: 'white',
@@ -45,6 +50,11 @@ export const CustomNumberField = styled(TextField)(({ theme }) => ({
     },
     '&.Mui-focused fieldset': {
       border: `2px solid ${theme.palette.primary.main}`,
+    },
+    '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'red',
+      border: '2px solid red',
+      color: 'red',
     },
   },
   '& .MuiInputLabel-outlined': {
