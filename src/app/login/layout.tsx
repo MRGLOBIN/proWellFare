@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import Box from '@mui/material/Box'
-
 import { roboto } from '@/app/ui/fonts'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
