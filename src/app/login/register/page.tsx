@@ -6,10 +6,16 @@ import { OtpNumber, PhoneNumber } from '@/app/components/login-components'
 
 const Register = () => {
   const [otp, setOtp] = useState(['', '', '', ''])
+  const [phoneNumber, setPhoneNumber] = useState('')
+
   const [isConfirmedNumber, setIsconfirmedNumer] = useState(false)
 
   const handleConfirmNumer = () => {
     setIsconfirmedNumer(!isConfirmedNumber)
+  }
+  const handleChangePhone = (event: { target: { value: string } }) => {
+    setPhoneNumber(event.target.value)
+    console.log(event.target.value)
   }
 
   const handleChange = (index: number, value: string) => {
@@ -48,7 +54,10 @@ const Register = () => {
   return (
     <div className='w-full h-full'>
       {!isConfirmedNumber && (
-        <PhoneNumber handleConfirmNumer={handleConfirmNumer} />
+        <PhoneNumber
+          handleConfirmNumer={handleConfirmNumer}
+          handleChangePhone={handleChangePhone}
+        />
       )}
 
       {isConfirmedNumber && (

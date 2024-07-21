@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import CircularProgress from '@mui/material/CircularProgress'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 import { useEffect, useState } from 'react'
 
@@ -15,6 +16,11 @@ import {
   CustomTextField,
   CustomNumberField,
 } from '../ui/custom-components'
+
+const defaultFormFields = {
+  phoneNumber: '',
+  password: '',
+}
 
 const body = {
   deviceId: 'Mozilla',
@@ -27,6 +33,9 @@ const body = {
 const Page = () => {
   const [isNotification, setIsnotification] = useState(true)
   const [isTouchedField, setIsTouchedFiled] = useState([false])
+  const [isVisiblePassword, setIsvisiblePassword] = useState(false)
+
+  const [formFields, setFormFields] = useState(defaultFormFields)
 
   useEffect(() => {
     setIsnotification(requestNotificationPermission())
@@ -40,10 +49,20 @@ const Page = () => {
     })
 
     console.log(response)
+    console.log('values', formFields)
+  }
+
+  const handleChange = (event: { target: { name: any; value: any } }) => {
+    const { name, value } = event.target
+    setFormFields({ ...formFields, [name]: value })
   }
 
   const handleBlur = (field: number) => {
     setIsTouchedFiled(prev => ({ ...prev, [field]: true }))
+  }
+
+  const toggleIconVisibility = () => {
+    setIsvisiblePassword(!isVisiblePassword)
   }
 
   return (
@@ -52,12 +71,17 @@ const Page = () => {
         <div className='flex flex-col w-full'>
           <div className='mb-6'>
             <CustomNumberField
+              name='phoneNumber'
               label='Mobile*'
               variant='outlined'
               fullWidth
               type='number'
-              error={isTouchedField[0]}
-              helperText={isTouchedField[0] && 'Mobile is required'}
+              onChange={handleChange}
+              error={isTouchedField[0] && !formFields.phoneNumber}
+              // helperText={isTouchedField[0] &&  'Mobile is required'}
+              inputProps={{
+                autoComplete: 'off',
+              }}
               onBlur={() => {
                 handleBlur(0)
               }}
@@ -65,18 +89,24 @@ const Page = () => {
           </div>
           <div className='mb-6'>
             <CustomTextField
+              name='password'
               label='Password*'
               variant='outlined'
-              type='password'
               fullWidth
-              error={isTouchedField[1]}
+              onChange={handleChange}
+              type={isVisiblePassword ? 'text' : 'password'}
+              error={isTouchedField[1] && !formFields.password}
               onBlur={() => handleBlur(1)}
-              helperText={isTouchedField[1] && 'Password is required'}
+              // helperText={isTouchedField[1] && 'Password is required'}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>
-                    <IconButton>
-                      <VisibilityIcon className='text-white' />
+                    <IconButton onClick={toggleIconVisibility}>
+                      {isVisiblePassword ? (
+                        <VisibilityIcon className='text-white' />
+                      ) : (
+                        <VisibilityOffIcon className='text-white' />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 ),

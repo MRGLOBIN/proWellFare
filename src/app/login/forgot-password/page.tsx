@@ -6,13 +6,20 @@ import { OtpNumber, PhoneNumber } from '@/app/components/login-components'
 
 const Register = () => {
   const [otp, setOtp] = useState(['', '', '', ''])
+  const [phoneNumber, setPhoneNumber] = useState('')
+
   const [isConfirmedNumber, setIsconfirmedNumer] = useState(false)
 
   const handleConfirmNumer = () => {
     setIsconfirmedNumer(!isConfirmedNumber)
   }
 
-  const handleChange = (index: number, value: string) => {
+  const handleChangePhone = (event: { target: { value: string } }) => {
+    setPhoneNumber(event.target.value)
+    console.log(event.target.value)
+  }
+
+  const handleChangeOtp = (index: number, value: string) => {
     if (isNaN(Number(value))) {
       console.log('value', value)
       return
@@ -29,7 +36,7 @@ const Register = () => {
     //TODO: request the data
     // Check if all inputs are filled
     if (newOtp.every(digit => digit !== '')) {
-      console.log('hello')
+      // console.log('hello')
     }
   }
 
@@ -37,7 +44,6 @@ const Register = () => {
     index: number,
     event: React.KeyboardEvent<HTMLDivElement>
   ) => {
-    console.log('backspace')
     if (event.key === 'Backspace' && !otp[index]) {
       if (index > 0) {
         document.getElementById(`otp-input-${index - 1}`)?.focus()
@@ -48,13 +54,16 @@ const Register = () => {
   return (
     <div className='w-full h-full'>
       {!isConfirmedNumber && (
-        <PhoneNumber handleConfirmNumer={handleConfirmNumer} />
+        <PhoneNumber
+          handleConfirmNumer={handleConfirmNumer}
+          handleChangePhone={handleChangePhone}
+        />
       )}
 
       {isConfirmedNumber && (
         <OtpNumber
           otp={otp}
-          handleChange={handleChange}
+          handleChange={handleChangeOtp}
           handleKeyDown={handleKeyDown}
         />
       )}
