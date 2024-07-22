@@ -23,11 +23,16 @@ const defaultFormFields = {
 }
 
 const body = {
-  deviceId: 'Mozilla',
-  tzOffset: '18000',
+  mobile: '090078601',
+  password: 'Testing@1',
   enc_password: '9789KqX7LEoQgbHe/HSiqQ==.I9KhRQF1lFypGalmMsYbjg==',
   fcmToken:
     'eVKyNVwPFecsdkLkN5WXAa:APA91bFRWz6JuGyyYYN5WH06eqE1SegbG1RdzDLqC1gQVu-4c4hNAabVKpvKUo3DbCjRRKY0atxAN9jHC-9vdzXrRgnUHCBwSy2HQbclCgradsvaHLYNlQUBRegxsJ_y615GBpOPpkNc',
+  deviceId: 'Mozilla',
+  deviceName: 'string',
+  deviceModel: 'string',
+  deviceType: 'string',
+  tzOffset: '18000',
 }
 
 const Page = () => {
@@ -49,7 +54,7 @@ const Page = () => {
     })
 
     console.log(response)
-    console.log('values', formFields)
+    // console.log('values', formFields)
   }
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
