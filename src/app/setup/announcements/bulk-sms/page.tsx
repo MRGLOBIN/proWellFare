@@ -68,11 +68,11 @@ const rows = [
   {
     id: 1,
     sr: 'jkl',
-    sender: 'asd',
-    sendon: 'asd',
-    conditions: 'asd',
+    sender: 'rwe',
+    sendon: 'nbm',
+    conditions: 'kiu',
     aux: 'fedrf',
-    pratice: 'lkmk',
+    pratice: 'lkzxcmk',
   },
 ]
 
@@ -80,6 +80,7 @@ const DataGridExample = () => {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        slotProps={{}}
         rows={rows}
         columns={columns}
         columnHeaderHeight={40}
