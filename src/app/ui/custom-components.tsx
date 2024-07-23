@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
+import { DataGrid } from '@mui/x-data-grid'
+
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
     borderRadius: '4px',
@@ -100,5 +102,67 @@ export const CustomButton = styled(Button)(({ theme }) => ({
 
   '&.Mui-disabled': {
     backgroundColor: '#3A4F8D',
+  },
+}))
+
+export const CustomisedDataGrid = styled(DataGrid)(({ theme }) => ({
+  border: 'none',
+  color: '#D2D2D2',
+  borderRadius: '9px',
+  overflow: 'hidden',
+  '& .MuiDataGrid-columnHeaders': {
+    color: '#D2D2D2',
+    fontSize: '12px',
+  },
+  '& .MuiDataGrid-columnHeader': {
+    '&:focus, &:focus-within': {
+      outline: 'none',
+    },
+  },
+  '& .MuiDataGrid-topContainer': {
+    backgroundColor: '#686868',
+  },
+  '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
+    outline: 'none',
+  },
+  '& .MuiDataGrid-cell': {
+    border: 'none',
+    '&:focus, &:focus-within': {
+      outline: 'none',
+    },
+  },
+  '& .MuiDataGrid-row': {
+    borderBottom: 'none',
+    backgroundColor: '#444750',
+    '&:hover': {
+      backgroundColor: '#4E515A',
+    },
+    '&.Mui-selected': {
+      background: '#5095C9',
+      outline: 'white',
+      '&:hover': {
+        background: '#5095C9',
+      },
+    },
+  },
+  '& .MuiDataGrid-footerContainer': {
+    color: '#D2D2D2',
+    borderTop: 'none',
+    background: '#686868',
+    height: '40px',
+    minHeight: '20px',
+  },
+  '& .css-1jlz3st': { border: 'none' },
+  '& .MuiToolbar-root': {
+    color: '#D2D2D2',
+  },
+  '& .MuiSvgIcon-root': {
+    color: '#D2D2D2',
+  },
+  '& .MuiDataGrid-columnHeaderTitle': {
+    fontWeight: '900',
+  },
+  '& .MuiDataGrid-columnSeparator': {
+    display: 'none',
   },
 }))
