@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
-import { gridClasses } from '@mui/material'
+import { gridClasses, GridClasses } from '@mui/material'
 
 const columns = [
   {
@@ -80,24 +80,30 @@ const DataGridExample = () => {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        slotProps={{}}
         rows={rows}
         columns={columns}
         columnHeaderHeight={40}
         // disableColumnMenu
         // disableColumnResize
         // disableColumnSelector
-        // disableColumnSorting
+        disableColumnSorting
         // disableDensitySelector
         // disableMultipleRowSelection
         // disableRowSelectionOnClick
         disableEval
         className='m-4 bg-[#2A2D38]'
+        rowHeight={40}
         getRowSpacing={param => {
           return {
-            top: param.isFirstVisible ? 0 : 5,
-            bottom: param.isLastVisible ? 0 : 5,
+            top: 0,
+            bottom: 0,
           }
+        }}
+        slotProps={{
+          cell: {
+            onMouseEnter: () => {},
+            onMouseLeave: () => {},
+          },
         }}
         sx={{
           border: 'none',
@@ -106,15 +112,36 @@ const DataGridExample = () => {
             color: '#D2D2D2',
             fontSize: '12px',
           },
-          '&::after': {
-            content: 'none',
-            height: '10px',
+          '& .MuiDataGrid-columnHeader': {
+            '&:focus, &:focus-within': {
+              outline: 'none',
+            },
+          },
+          '& .MuiDataGrid-topContainer': {
+            backgroundColor: '#686868',
+          },
+          '& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within': {
+            outline: 'none',
           },
           '& .MuiDataGrid-cell': {
             border: 'none',
+            '&:focus, &:focus-within': {
+              outline: 'none',
+            },
           },
           '& .MuiDataGrid-row': {
             borderBottom: 'none',
+            backgroundColor: '#444750',
+            '&:hover': {
+              backgroundColor: '#4E515A',
+            },
+            '&.Mui-selected': {
+              background: '#5095C9',
+              outline: 'white',
+              '&:hover': {
+                background: '#5095C9',
+              },
+            },
           },
           '& .MuiDataGrid-footerContainer': {
             color: '#D2D2D2',
@@ -122,7 +149,6 @@ const DataGridExample = () => {
             background: '#686868',
             borderRadius: '2px',
           },
-
           '& .css-1jlz3st': { border: 'none' },
           '& .MuiToolbar-root': {
             color: '#D2D2D2',
