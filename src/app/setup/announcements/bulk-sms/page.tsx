@@ -91,9 +91,9 @@ const DataGridExample = () => {
         // disableRowSelectionOnClick
         disableEval
         rowHeight={40}
-        pageSizeOptions={[1, 10, 25]}
+        pageSizeOptions={[5, 10, 25]}
         initialState={{
-          pagination: { paginationModel: { pageSize: 1 } },
+          pagination: { paginationModel: { pageSize: 5 } },
         }}
         className='m-4 bg-[#2A2D38]'
         getRowSpacing={param => ({

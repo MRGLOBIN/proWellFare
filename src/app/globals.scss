@@ -11,4 +11,40 @@
       color: #d2d2d2;
     }
   }
+
+  .MuiButtonBase-root {
+    color: #d2d2d2;
+    background-color: #686868;
+  }
+  .MuiFormLabel-root {
+    color: #d2d2d2;
+  }
+
+  .MuiInputBase-root {
+    color: #d2d2d2;
+  }
+
+  .MuiSvgIcon-root {
+    color: #d2d2d2;
+  }
+
+  .css-n70jm4-MuiInputBase-root-MuiInput-root-MuiSelect-root::after {
+    border: 0;
+  }
+  .css-1eed5fa-MuiInputBase-root-MuiInput-root::after {
+    border: 0;
+  }
+
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+    background-color: #686868;
+  }
+
+  .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+    border-color: white;
+  }
+
+  .css-nu1e6h-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+    .MuiOutlinedInput-notchedOutline {
+    border-color: white;
+  }
 }
