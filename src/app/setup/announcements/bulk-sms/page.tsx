@@ -1,11 +1,14 @@
 'use client'
 
 import React from 'react'
+
 import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
+import { IGridRowDef } from '@/app/types/data-grid-rows/data-grid-rows'
 import { gridColumns } from '@/app/setup/announcements/bulk-sms/data-grid-columns'
+import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
-const rows = [
+const ExampleRows: IGridRowDef[] = [
   {
     id: 2,
     sr: 'asd',
@@ -24,13 +27,28 @@ const rows = [
     aux: 'fedrf',
     pratice: 'lkzxcmk',
   },
+  {
+    id: 3,
+    sr: 'asqwe',
+    sender: 'rwe',
+    sendon: 'nbm',
+    conditions: 'kiu',
+    aux: 'fedrf',
+    pratice: 'lkzxcmk',
+  },
 ]
+
+const customToolBar = () => (
+  <GridToolbarContainer sx={{ color: 'white' }}>
+    <GridToolbarExport />
+  </GridToolbarContainer>
+)
 
 const DataGridExample = () => {
   return (
-    <div className='w-full min-w-[100vw]  max-h-[95%] min-h-[95%] h-1'>
+    <div className='w-full min-w-[100vw]  max-h-[90%] min-h-[83%] h-1'>
       <CustomisedDataGrid
-        rows={rows}
+        rows={ExampleRows}
         columns={gridColumns}
         columnHeaderHeight={40}
         disableColumnResize
@@ -45,6 +63,9 @@ const DataGridExample = () => {
           top: 0,
           bottom: 0,
         })}
+        slots={{
+          toolbar: customToolBar,
+        }}
       />
     </div>
   )

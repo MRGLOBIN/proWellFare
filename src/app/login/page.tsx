@@ -125,7 +125,7 @@ const Page = () => {
         <div className='flex items-end mb-2 text-[#3496CE]'>
           <Link href={'/login/register'}>I&apos;m a New User</Link>
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col text-white'>
           <Link href={'/login/forgot-password'}>Forgot Password?</Link>
           <div className='flex justify-end mt-3 h-10'>
             <CustomButton
