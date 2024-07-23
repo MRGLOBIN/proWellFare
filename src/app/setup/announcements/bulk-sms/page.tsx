@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
-import { gridClasses, GridClasses } from '@mui/material'
 
 const columns = [
   {
@@ -10,7 +9,7 @@ const columns = [
     headerName: 'SR',
     minidth: 50,
     flex: 1,
-    headerClassName: 'bg-[#686868] ',
+    headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
   },
   {
@@ -78,7 +77,7 @@ const rows = [
 
 const DataGridExample = () => {
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div className='w-full max-h-[90%] min-h-[90%] h-1'>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -86,7 +85,7 @@ const DataGridExample = () => {
         // disableColumnMenu
         // disableColumnResize
         // disableColumnSelector
-        disableColumnSorting
+        // disableColumnSorting
         // disableDensitySelector
         // disableMultipleRowSelection
         // disableRowSelectionOnClick
@@ -108,6 +107,8 @@ const DataGridExample = () => {
         sx={{
           border: 'none',
           color: '#D2D2D2',
+          borderRadius: '9px',
+          overflow: 'hidden',
           '& .MuiDataGrid-columnHeaders': {
             color: '#D2D2D2',
             fontSize: '12px',
@@ -147,7 +148,6 @@ const DataGridExample = () => {
             color: '#D2D2D2',
             borderTop: 'none',
             background: '#686868',
-            borderRadius: '2px',
           },
           '& .css-1jlz3st': { border: 'none' },
           '& .MuiToolbar-root': {
