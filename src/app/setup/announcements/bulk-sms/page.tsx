@@ -7,7 +7,7 @@ const columns = [
   {
     field: 'sr',
     headerName: 'SR',
-    minidth: 50,
+    minWidth: 100,
     flex: 1,
     headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
@@ -15,7 +15,7 @@ const columns = [
   {
     field: 'sender',
     headerName: 'Sender',
-    minidth: 100,
+    minWidth: 150,
     flex: 2,
     headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
@@ -23,7 +23,7 @@ const columns = [
   {
     field: 'sendon',
     headerName: 'Send On',
-    minidth: 100,
+    minWidth: 200,
     flex: 2,
     headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
@@ -31,7 +31,7 @@ const columns = [
   {
     field: 'conditions',
     headerName: 'Conditions',
-    minidth: 150,
+    minWidth: 200,
     flex: 3,
     headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
@@ -39,7 +39,7 @@ const columns = [
   {
     field: 'aux',
     headerName: 'Auxilary Minutes',
-    minidth: 150,
+    minWidth: 200,
     flex: 3,
     headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
@@ -47,7 +47,7 @@ const columns = [
   {
     field: 'pratice',
     headerName: 'NO. OF PRACTICE',
-    minidth: 150,
+    minWidth: 150,
     flex: 3,
     headerClassName: 'bg-[#686868]',
     // headerAlign: 'center',
@@ -77,27 +77,29 @@ const rows = [
 
 const DataGridExample = () => {
   return (
-    <div className='w-full max-h-[90%] min-h-[90%] h-1'>
+    <div className='w-full min-w-[100vw]  max-h-[95%] min-h-[95%] h-1'>
       <DataGrid
         rows={rows}
         columns={columns}
         columnHeaderHeight={40}
         // disableColumnMenu
-        // disableColumnResize
+        disableColumnResize
         // disableColumnSelector
         // disableColumnSorting
         // disableDensitySelector
         // disableMultipleRowSelection
         // disableRowSelectionOnClick
         disableEval
-        className='m-4 bg-[#2A2D38]'
         rowHeight={40}
-        getRowSpacing={param => {
-          return {
-            top: 0,
-            bottom: 0,
-          }
+        pageSizeOptions={[1, 10, 25]}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 1 } },
         }}
+        className='m-4 bg-[#2A2D38]'
+        getRowSpacing={param => ({
+          top: 0,
+          bottom: 0,
+        })}
         slotProps={{
           cell: {
             onMouseEnter: () => {},
@@ -148,6 +150,8 @@ const DataGridExample = () => {
             color: '#D2D2D2',
             borderTop: 'none',
             background: '#686868',
+            height: '40px',
+            minHeight: '20px',
           },
           '& .css-1jlz3st': { border: 'none' },
           '& .MuiToolbar-root': {
@@ -158,6 +162,9 @@ const DataGridExample = () => {
           },
           '& .MuiDataGrid-columnHeaderTitle': {
             fontWeight: '900',
+          },
+          '& .MuiDataGrid-columnSeparator': {
+            display: 'none',
           },
         }}
       />

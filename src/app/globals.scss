@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.MuiPaper-root {
+  background-color: #686868;
+  color: #d2d2d2;
+  .MuiList-root {
+    // background-color: red;
+    .MuiSvgIcon-root {
+      color: #d2d2d2;
+    }
+  }
+}

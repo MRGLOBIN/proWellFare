@@ -13,7 +13,7 @@ import AnnouncementIcon from '@mui/icons-material/Announcement'
 
 const SetupNav = () => {
   return (
-    <nav className='flex justify-between px-2 py-1 mt-2  bg-[#363A47] text-white text-sm'>
+    <nav className='xl:flex justify-between px-2 py-1 mt-2 bg-[#363A47] text-white text-sm w-screen hidden '>
       <div className='flex items-center'>
         <DashboardIcon className='text-xl mr-[6px]' />
         <span>Command Center</span>
