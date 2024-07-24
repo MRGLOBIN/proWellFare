@@ -4,7 +4,7 @@ import React from 'react'
 
 import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
-import { IGridRowDef } from '@/app/types/data-grid-rows/data-grid-rows'
+import { IGridRowDef } from '@/app/types/data-grid-rows/bulkSms.type'
 import { gridColumns } from '@/app/setup/announcements/bulk-sms/data-grid-columns'
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 

@@ -110,6 +110,7 @@ export const CustomisedDataGrid = styled(DataGrid)(({ theme }) => ({
   color: '#D2D2D2',
   borderRadius: '9px',
   overflow: 'hidden',
+  '--DataGrid-containerBackground': '#686868',
   '& .MuiDataGrid-columnHeaders': {
     color: '#D2D2D2',
     fontSize: '12px',
