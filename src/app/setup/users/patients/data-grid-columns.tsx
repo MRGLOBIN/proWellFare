@@ -5,12 +5,12 @@ import { GridColDef } from '@mui/x-data-grid'
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
 const CommentCellRenderer = (params: GridRenderCellParams) => {
-  if (!params.row.comment) return
-  const { comment, employee } = params.row.comment[0]
+  if (params.row.comments.length === 0) return
+  const { comment, employee } = params.row.comments[0]
   return (
     <div>
       <span className='text-[#B5D7E4]'>
-        {employee.user.fullName
+        {employee?.user.fullName
           .split(' ')
           .map((word: string) => word[0].toUpperCase())
           .join('')}{' '}
@@ -25,15 +25,15 @@ const FlagCellRender = (params: GridRenderCellParams) =>
   params.value ? (
     <Image src={'/images/flag.png'} width={20} height={20} alt='data flag' />
   ) : (
-    '-'
+    '--'
   )
 
 export const gridColumns: GridColDef[] = [
   {
     field: 'flag',
     headerName: 'FLAG',
-    minWidth: 100,
-    flex: 1,
+    minWidth: 50,
+    flex: 0.5,
     headerClassName: 'bg-[#686868]',
     type: 'boolean',
     renderCell: FlagCellRender,
@@ -49,8 +49,8 @@ export const gridColumns: GridColDef[] = [
   {
     field: 'careGiver',
     headerName: 'Patient Caregiver',
-    minWidth: 200,
-    flex: 2,
+    minWidth: 150,
+    flex: 1.5,
     type: 'string',
     headerClassName: 'bg-[#686868]',
   },
@@ -65,8 +65,8 @@ export const gridColumns: GridColDef[] = [
   {
     field: 'email',
     headerName: 'Email',
-    minWidth: 250,
-    flex: 2.5,
+    minWidth: 200,
+    flex: 2,
     type: 'string',
     headerClassName: 'bg-[#686868]',
   },
@@ -91,11 +91,7 @@ export const gridColumns: GridColDef[] = [
     headerName: 'Reffered On',
     minWidth: 100,
     flex: 1,
-    type: 'date',
-    valueGetter: (params: GridRenderCellParams) => {
-      if (!params?.value) return
-      new Date(params.value * 1000)
-    },
+    type: 'string',
     headerClassName: 'bg-[#686868]',
   },
   {
@@ -103,18 +99,14 @@ export const gridColumns: GridColDef[] = [
     headerName: 'Register On',
     minWidth: 100,
     flex: 100,
-    type: 'date',
-    valueGetter: (params: GridRenderCellParams) => {
-      if (!params?.value) return
-      new Date(params.value * 1000)
-    },
+    type: 'string',
     headerClassName: 'bg-[#686868]',
   },
   {
     field: 'activationDate',
     headerName: 'Activation Date',
-    minWidth: 100,
-    flex: 1,
+    minWidth: 120,
+    flex: 1.2,
     headerClassName: 'bg-[#686868]',
   },
   {
@@ -122,18 +114,14 @@ export const gridColumns: GridColDef[] = [
     headerName: 'Pre Auth Date',
     minWidth: 100,
     flex: 1,
-    type: 'date',
-    valueGetter: (params: GridRenderCellParams) => {
-      if (!params?.value) return
-      new Date(params.value * 1000)
-    },
+    type: 'string',
     headerClassName: 'bg-[#686868]',
   },
   {
     field: 'provider',
     headerName: 'Provider',
-    minWidth: 200,
-    flex: 2,
+    minWidth: 150,
+    flex: 1.5,
     type: 'string',
     headerClassName: 'bg-[#686868]',
   },
@@ -154,8 +142,8 @@ export const gridColumns: GridColDef[] = [
     renderCell: CommentCellRenderer,
   },
   {
-    field: 'pratice',
-    headerName: 'Pratice(s)',
+    field: 'practice',
+    headerName: 'Practice (s) ',
     minWidth: 150,
     flex: 1.5,
     type: 'string',
@@ -164,8 +152,8 @@ export const gridColumns: GridColDef[] = [
   {
     field: 'insuranceCompany',
     headerName: 'Insurance Company',
-    minWidth: 300,
-    flex: 300,
+    minWidth: 250,
+    flex: 2.5,
     type: 'string',
     headerClassName: 'bg-[#686868]',
   },
@@ -188,9 +176,15 @@ export const gridColumns: GridColDef[] = [
   {
     field: 'copayAmount',
     headerName: 'Copay Amount($)',
-    minWidth: 200,
-    flex: 2,
+    minWidth: 150,
+    flex: 1.5,
     type: 'string',
+    valueGetter: value => {
+      if (!value) {
+        return '--'
+      }
+      return value
+    },
     headerClassName: 'bg-[#686868]',
   },
 ]

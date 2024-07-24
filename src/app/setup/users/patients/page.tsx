@@ -9,66 +9,48 @@ import { exampleRows } from './delete-response-data'
 
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
-const exampleRow = exampleRows.records.map(patientData => {
-  // const refferalDateUnFormatted = new Date(patientData.referralDate * 1000)
-  // const refferalDate = [
-  //   ('0' + (refferalDateUnFormatted.getMonth() + 1)).slice(-2), // Month (01-12)
-  //   ('0' + refferalDateUnFormatted.getDate()).slice(-2), // Day (01-31)
-  //   refferalDateUnFormatted.getFullYear(), // Year (YYYY)
-  // ].join('-')
+const formatDate = (date: number | null) => {
+  if (!date) {
+    return '--'
+  }
 
+  const unformattedDate = new Date(date * 1000)
+  return [
+    ('0' + (unformattedDate.getMonth() + 1)).slice(-2), // Month (01-12)
+    ('0' + unformattedDate.getDate()).slice(-2), // Day (01-31)
+    unformattedDate.getFullYear(), // Year (YYYY)
+  ].join('-')
+}
+
+const exampleRow = exampleRows.records.map(patientData => {
   return {
     id: patientData.patientId,
     flag: patientData.flag,
     patientName: `${patientData.user.firstName} ${patientData.user.lastName}`,
-    careGiver: `${patientData.caregiverFirstName} ${patientData.caregiverLastName}`,
+    careGiver:
+      patientData.caregiverFirstName || patientData.caregiverLastName
+        ? `${patientData.caregiverFirstName || ''} ${
+            patientData.caregiverLastName || ''
+          }`.trim()
+        : '',
     regNo: patientData.hospitalNo,
     email: patientData.user.email,
     birthDate: patientData.user.birthDateString,
     mobile: patientData.user.mobile,
-    refferedOn: patientData.referralDate,
-    registerOn: patientData.dateCreated,
+    refferedOn: formatDate(patientData.referralDate),
+    registerOn: formatDate(patientData.dateCreated),
     activationDate: 'unknown to me',
-    preAuthDate: patientData.preAuthorizationDate,
+    preAuthDate: formatDate(patientData.preAuthorizationDate),
     provider: patientData.primaryDoctorName,
     rpmStatus: patientData.activationStatus,
     comments: patientData.CommentToPatients,
-    partice: patientData.healthcareFacilityName,
+    practice: patientData.healthcareFacilityName,
     insuranceCompany: patientData.insurancePlan.insuranceCompany.name,
     insurancePlan: patientData.insurancePlan.plan,
     insuranceStatus: patientData.insuranceStatus,
     copayAmount: patientData.copayAmount,
   }
 })
-
-// const exampleRow = [
-//   {
-//     id: 1,
-//     flag: true,
-//     patient: 'human',
-//     caregiver: 'another human',
-//     reg: '2024',
-//     email: 'w@w.com',
-//     birthdate: '2101',
-//     mobile: '123415',
-//     reffered: 'someone',
-//     register: '20 204',
-//     activation: '18-june',
-//     auth: '18',
-//     provider: 'no one',
-//     rpmstatus: 'nope',
-//     comment: {
-//       comment: 'no Comments',
-//       dateCreated: '12',
-//       employee: { user: { fullName: 'user comment name' } },
-//     },
-//     pratice: 'lahore',
-//     insurance: 'company',
-//     plan: 'a day plan',
-//     insurancestatus: 'none',
-//     copay: '20',
-//   },
-// ]
 
 const customToolBar = () => (
   <GridToolbarContainer sx={{ color: 'white' }}>
@@ -89,10 +71,14 @@ const PatientsPage = () => {
         checkboxSelection
         columnHeaderHeight={40}
         rowHeight={40}
-        className='m-4 bg-[#2A2D38]'
-        pageSizeOptions={[5, 10, 25]}
+        getRowSpacing={param => ({
+          top: param.isFirstVisible ? 2 : 0,
+          bottom: param.isLastVisible ? 2 : 0,
+        })}
+        className='m-4 bg-[#2A2D38] text-white'
+        pageSizeOptions={[30, 50, 100]}
         initialState={{
-          pagination: { paginationModel: { pageSize: 5 } },
+          pagination: { paginationModel: { pageSize: 30 } },
         }}
         slots={{
           toolbar: customToolBar,

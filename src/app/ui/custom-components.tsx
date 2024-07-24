@@ -151,7 +151,7 @@ export const CustomisedDataGrid = styled(DataGrid)(({ theme }) => ({
     borderTop: 'none',
     background: '#686868',
     height: '40px',
-    minHeight: '20px',
+    minHeight: '40px',
   },
   '& .css-1jlz3st': { border: 'none' },
   '& .MuiToolbar-root': {
