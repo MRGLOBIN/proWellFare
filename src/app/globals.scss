@@ -2,40 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-.MuiPaper-root {
-  background-color: #686868;
-  color: #d2d2d2;
-  .MuiList-root {
-    // background-color: red;
-    .MuiSvgIcon-root {
-      color: #d2d2d2;
-    }
-  }
-  .MuiButtonBase-root {
-    color: #d2d2d2;
-    background-color: #686868;
-  }
-  .MuiFormLabel-root {
-    color: #d2d2d2;
-  }
+// .MuiPaper-root {
+//   background-color: #686868;
+//   color: #d2d2d2;
+//   .MuiList-root {
+//     // background-color: red;
+//     .MuiSvgIcon-root {
+//       color: #d2d2d2;
+//     }
+//   }
+//   .MuiButtonBase-root {
+//     color: #d2d2d2;
+//     background-color: #686868;
+//   }
+//   .MuiFormLabel-root {
+//     color: #d2d2d2;
+//   }
 
-  .MuiInputBase-root {
-    color: #d2d2d2;
-    border: 0 !important;
-    ::after {
-      border: 0 !important;
-    }
-  }
+//   .MuiInputBase-root {
+//     color: #d2d2d2;
+//     border: 0 !important;
+//     ::after {
+//       border: 0 !important;
+//     }
+//   }
 
-  .MuiSvgIcon-root {
-    color: #d2d2d2;
-  }
+//   .MuiSvgIcon-root {
+//     color: #d2d2d2;
+//   }
 
-  .MuiOutlinedInput-notchedOutline {
-    border-color: white !important;
-  }
-}
+//   .MuiOutlinedInput-notchedOutline {
+//     border-color: white !important;
+//   }
+// }
 
-.MuiButtonBase-root {
-  color: #d2d2d2;
-}
+// .MuiButtonBase-root {
+//   color: #d2d2d2;
+// }
