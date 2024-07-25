@@ -2,7 +2,23 @@ import Image from 'next/image'
 
 import { GridColDef } from '@mui/x-data-grid'
 
+import { ActivationStatus } from '@/app/types/data-grid-rows/patients.type'
+
 import { GridRenderCellParams } from '@mui/x-data-grid'
+
+// TODO: color for some properties are not assigned
+const statusCellBackgroundColourMapping = {
+  Referred: 'bg-[#6C727F]',
+  Terminated: 'bg-[#DE5243]',
+  'Device Assigned': 'bg-[#347659]',
+  Active: 'bg-[#1BAD57]',
+  Inactive: 'bg-[#DF7A35]',
+  'Training Scheduled': 'bg-purple-500',
+  'Did Not Answer': 'bg-orange-500',
+  Accepted: 'bg-teal-500',
+  Declined: 'bg-pink-500',
+  'Insurance verified': 'bg-[#48A2E6]',
+}
 
 const CommentCellRenderer = (params: GridRenderCellParams) => {
   if (params.row.comments.length === 0) return '--'
@@ -27,6 +43,24 @@ const FlagCellRender = (params: GridRenderCellParams) =>
   ) : (
     '--'
   )
+
+const rpmStatusCellRender = ({
+  row: { rpmStatus },
+}: {
+  row: { rpmStatus: keyof typeof ActivationStatus }
+}) => {
+  const status = ActivationStatus[rpmStatus]
+  const backgroundColor =
+    statusCellBackgroundColourMapping[status] || 'bg-black'
+
+  return (
+    <span
+      className={`${backgroundColor} leading-[30px] w-4/5 rounded-3xl flex justify-center`}
+    >
+      {status}
+    </span>
+  )
+}
 
 export const gridColumns: GridColDef[] = [
   {
@@ -132,12 +166,13 @@ export const gridColumns: GridColDef[] = [
     flex: 2,
     type: 'string',
     headerClassName: 'bg-[#686868]',
+    renderCell: rpmStatusCellRender,
   },
   {
     field: 'comment',
     headerName: 'COMMENTS',
     minWidth: 200,
-    flex: 3,
+    flex: 2.5,
     headerClassName: 'bg-[#686868]',
     renderCell: CommentCellRenderer,
   },
@@ -171,6 +206,7 @@ export const gridColumns: GridColDef[] = [
     minWidth: 150,
     flex: 1.5,
     type: 'string',
+    valueGetter: value => (value ? value : '--'),
     headerClassName: 'bg-[#686868]',
   },
   {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
@@ -67,6 +67,7 @@ const PatientsPage = () => {
         columns={columns}
         rows={exampleRow}
         disableEval
+        disableColumnMenu
         disableColumnResize
         checkboxSelection
         columnHeaderHeight={40}
