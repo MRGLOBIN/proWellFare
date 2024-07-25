@@ -5,7 +5,7 @@ import { GridColDef } from '@mui/x-data-grid'
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
 const CommentCellRenderer = (params: GridRenderCellParams) => {
-  if (params.row.comments.length === 0) return
+  if (params.row.comments.length === 0) return '--'
   const { comment, employee } = params.row.comments[0]
   return (
     <div>

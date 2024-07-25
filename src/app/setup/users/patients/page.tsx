@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
@@ -32,7 +32,7 @@ const exampleRow = exampleRows.records.map(patientData => {
         ? `${patientData.caregiverFirstName || ''} ${
             patientData.caregiverLastName || ''
           }`.trim()
-        : '',
+        : '--',
     regNo: patientData.hospitalNo,
     email: patientData.user.email,
     birthDate: patientData.user.birthDateString,
@@ -78,7 +78,7 @@ const PatientsPage = () => {
         className='m-4 bg-[#2A2D38] text-white'
         pageSizeOptions={[30, 50, 100]}
         initialState={{
-          pagination: { paginationModel: { pageSize: 30 } },
+          pagination: { paginationModel: { pageSize: 30, page: 0 } },
         }}
         slots={{
           toolbar: customToolBar,
