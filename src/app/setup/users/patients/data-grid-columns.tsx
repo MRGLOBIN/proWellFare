@@ -9,6 +9,8 @@ import { ActivationStatus } from '@/app/types/data-grid-rows/patients.type'
 import { GridRenderCellParams } from '@mui/x-data-grid'
 import { ColumnFilterDataGrid } from '@/app/components/filter-column-data-grid/'
 
+import { FilterList } from '@mui/icons-material'
+
 const rpmStatusCellRender = ({
   row: { rpmStatus },
 }: {
@@ -185,7 +187,12 @@ export const gridColumns: GridColDef[] = [
     sortable: false,
     renderCell: rpmStatusCellRender,
     renderHeader: () =>
-      ColumnFilterDataGrid('RPM Status', rmpColumnFilterableValues, true),
+      ColumnFilterDataGrid(
+        FilterList,
+        'RPM Status',
+        rmpColumnFilterableValues,
+        true
+      ),
   },
   {
     field: 'comment',
@@ -201,7 +208,12 @@ export const gridColumns: GridColDef[] = [
     flex: 1.5,
     type: 'string',
     renderHeader: () =>
-      ColumnFilterDataGrid('Practice (s)', rmpColumnFilterableValues, true),
+      ColumnFilterDataGrid(
+        FilterList,
+        'Practice (s)',
+        rmpColumnFilterableValues,
+        true
+      ),
     headerClassName: 'bg-[#686868]',
   },
   {

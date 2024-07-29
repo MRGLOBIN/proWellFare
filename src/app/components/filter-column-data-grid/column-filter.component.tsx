@@ -12,13 +12,12 @@ import {
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
-import { FilterList } from '@mui/icons-material'
-
 // TODO:
 // move to another file
 export const ColumnFilterDataGrid = (
+  ColumnHeaderIcon: React.FC,
   columnName: string,
-  filterableValues: any,
+  filterableValues: { [key: string]: boolean },
   search: boolean
 ) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -34,7 +33,7 @@ export const ColumnFilterDataGrid = (
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
+  const handleCloseMenu = () => {
     setAnchorEl(null)
   }
 
@@ -67,13 +66,13 @@ export const ColumnFilterDataGrid = (
           }
           size='small'
         >
-          <FilterList />
+          <ColumnHeaderIcon />
         </IconButton>
       </Tooltip>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={handleCloseMenu}
         slotProps={{
           paper: {
             style: {
@@ -156,14 +155,18 @@ export const ColumnFilterDataGrid = (
             variant='outlined'
             size='small'
             className='mr-3'
+            onClick={handleCloseMenu}
             sx={{
               textTransform: 'none',
               fontWeight: 900,
-              borderColor: '#444750',
               color: 'red',
+              borderColor: 'darkred',
+              '&:hover': {
+                borderColor: 'red',
+              },
             }}
           >
-            Cancel
+            Close
           </Button>
           <Button
             variant='outlined'
