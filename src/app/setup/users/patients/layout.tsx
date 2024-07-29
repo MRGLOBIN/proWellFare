@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add'
 import ReplayIcon from '@mui/icons-material/Replay'
 import SettingsIcon from '@mui/icons-material/Settings'
 
-import { Button, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 const PatientsHeader = ({ children }: { children: React.ReactNode }) => {
   return (
