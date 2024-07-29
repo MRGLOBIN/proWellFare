@@ -2,11 +2,11 @@
 
 import { SetStateAction, useMemo, useState } from 'react'
 
-import PatientData from '@/app/setup/users/hooks/patient'
+import PatientData from '@/app/setup/user/hooks/patient'
 
 import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
-import { gridColumns } from '@/app/setup/users/patients/data-grid-columns'
+import { gridColumns } from '@/app/setup/user/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
 
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'

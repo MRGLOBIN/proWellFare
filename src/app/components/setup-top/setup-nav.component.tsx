@@ -23,42 +23,51 @@ import FlipIcon from '@mui/icons-material/Flip'
 import HeadphonesIcon from '@mui/icons-material/Headphones'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import GroupIcon from '@mui/icons-material/Group'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
+import ReceiptIcon from '@mui/icons-material/Receipt'
 
 import { useState } from 'react'
-import { title } from 'process'
 
 const CommandCenter = [
   {
     icon: VisibilityIcon,
     title: 'Observations',
+    link: '/setup/cc/observations',
   },
   {
     icon: LiveTvIcon,
     title: 'Live Session',
+    link: 'setup/sessions/list',
   },
   {
     icon: EventNoteIcon,
     title: 'Home Admissions',
+    link: '/setup/cc/admission',
   },
   {
     icon: PermPhoneMsgIcon,
     title: 'Follow Up Calls',
+    link: '/setup/follow-up/schedule',
   },
   {
     icon: FlipIcon,
     title: 'Patient App Monitoring',
+    link: '/setup/app-monitoring/list',
   },
   {
     icon: HeadphonesIcon,
     title: 'Call Recordings',
+    link: '/setup/cc/call-recordings',
   },
   {
     icon: AttachFileIcon,
     title: 'IGMS',
+    link: '/setup/igms',
   },
   {
     icon: AttachFileIcon,
     title: 'Hand Over',
+    link: '/setup/hand-over',
   },
 ]
 
@@ -66,32 +75,146 @@ const users = [
   {
     icon: GroupIcon,
     title: 'Practice',
+    link: '/setup/user/facility',
   },
   {
     icon: GroupIcon,
     title: 'Employees',
+    link: '/setup/user/employees',
   },
   {
     icon: GroupIcon,
     title: 'Patients',
+    link: '/setup/user/patients',
   },
   {
     icon: GroupIcon,
     title: 'Support Persons',
+    link: '/setup/user/guardians',
   },
   {
     icon: GroupIcon,
     title: 'Non-Compliant Patients',
+    link: '/setup/user/non-comp-patients',
   },
   {
     icon: GroupIcon,
     title: 'Home Health Agency',
+    link: '/setup/user/homeHealthAgency',
+  },
+]
+
+const reports = [
+  {
+    icon: ReceiptLongIcon,
+    title: 'Audit Logs',
+    link: '/setup/reports/auditLogs',
+  },
+  {
+    icon: AttachFileIcon,
+    title: 'Call Logs',
+    link: '/setup/reports/callLogs',
+  },
+  {
+    icon: AttachFileIcon,
+    title: 'Communication Logs',
+    link: '/setup/reports/communicationLogs',
+  },
+  {
+    icon: ReceiptLongIcon,
+    title: 'Billable Events Reprots',
+    link: '/setup/reports/billableEventsReport',
+  },
+  {
+    icon: ReceiptLongIcon,
+    title: 'Patients Monthly Dashboard',
+    link: '/setup/reports/patient-monthly-report',
+  },
+  {
+    icon: ReceiptLongIcon,
+    title: 'Patients Progress Dashboard',
+    link: '/patient-progress-dashboard',
+  },
+  {
+    icon: ReceiptLongIcon,
+    title: 'Last 24 Hr Report',
+    link: '/setup/reports/last24HrReport',
+  },
+  {
+    icon: ReceiptLongIcon,
+    title: 'Montly Report',
+    link: '/setup/reports/monthlyReport',
+  },
+  {
+    icon: ReceiptLongIcon,
+    title: 'Patient Status Dashboard',
+    link: '/setup/reports/patient-status-dashboard',
+  },
+]
+
+const settings = [
+  {
+    icon: SettingsIcon,
+    title: 'Master Settings',
+    link: '/setup/settings/master-settings',
+  },
+  {
+    icon: SettingsIcon,
+    title: 'User Settings',
+    link: '/setup/settings/user-settings',
+  },
+]
+
+const billing = [
+  {
+    icon: EventNoteIcon,
+    title: 'Patient Billing',
+    link: '/setup/billing/patient',
+  },
+  {
+    icon: EventNoteIcon,
+    title: 'Practice Billing',
+    link: '/setup/billing/practice',
+  },
+  {
+    icon: MonetizationOnIcon,
+    title: 'Financials',
+    link: '/setup/financials',
+  },
+  {
+    icon: ReceiptIcon,
+    title: 'Invoice Payment Status',
+    link: '/setup/invoice-payment-status',
+  },
+  {
+    icon: ReceiptIcon,
+    title: 'Home Health Agency Billing',
+    link: '/setup/billing/home-agency-billing',
+  },
+]
+
+const announcements = [
+  {
+    icon: AnnouncementIcon,
+    title: 'Patients',
+    link: '/setup/announcements/patient',
+  },
+  {
+    icon: AnnouncementIcon,
+    title: 'Practice',
+    link: '/setup/announcements/practice',
   },
 ]
 
 const SetupNav = () => {
+  const [selected, setSelected] = useState('Observations')
+
   const [hoverCommandCenter, setHoverCommandCenter] = useState(false)
   const [hoverUsers, setHoverUsers] = useState(false)
+  const [hoverReports, setHoverReports] = useState(false)
+  const [hoverSetting, setHoverSetting] = useState(false)
+  const [hoverBilling, setHoverBilling] = useState(false)
+  const [hoverAnnouncement, setHoverAnnoncement] = useState(false)
 
   const handleMouseEnter = (
     setHover: React.Dispatch<React.SetStateAction<boolean>>
@@ -114,7 +237,11 @@ const SetupNav = () => {
       >
         {hoverCommandCenter && (
           <div className='relative'>
-            <HoverNavList menuList={CommandCenter} />
+            <HoverNavList
+              menuList={CommandCenter}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </div>
         )}
         <DashboardIcon className='text-xl mr-[6px]' />
@@ -131,17 +258,47 @@ const SetupNav = () => {
       >
         {hoverUsers && (
           <div className='relative'>
-            <HoverNavList menuList={users} />
+            <HoverNavList
+              menuList={users}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </div>
         )}
         <PeopleIcon className='text-xl mr-[6px]' />
         <span>Users</span>
       </div>
-      <div className='flex items-center'>
+      <div
+        className='flex items-center'
+        onMouseEnter={() => handleMouseEnter(setHoverReports)}
+        onMouseLeave={() => handleMouseLeave(setHoverReports)}
+      >
+        {hoverReports && (
+          <div className='relative'>
+            <HoverNavList
+              menuList={reports}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          </div>
+        )}
         <ReceiptLongIcon className='text-xl mr-[6px]' />
         <span>Reports</span>
       </div>
-      <div className='flex items-center'>
+      <div
+        className='flex items-center'
+        onMouseEnter={() => handleMouseEnter(setHoverSetting)}
+        onMouseLeave={() => handleMouseLeave(setHoverSetting)}
+      >
+        {hoverSetting && (
+          <div className='relative'>
+            <HoverNavList
+              menuList={settings}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          </div>
+        )}
         <SettingsIcon className='text-xl mr-[6px]' />
         <span>Setting</span>
       </div>
@@ -153,7 +310,20 @@ const SetupNav = () => {
         <PersonIcon className='text-xl mr-[6px]' />
         <span>Roles & Permissions</span>
       </div>
-      <div className='flex items-center'>
+      <div
+        className='flex items-center'
+        onMouseEnter={() => handleMouseEnter(setHoverBilling)}
+        onMouseLeave={() => handleMouseLeave(setHoverBilling)}
+      >
+        {hoverBilling && (
+          <div className='relative'>
+            <HoverNavList
+              menuList={billing}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          </div>
+        )}
         <PrintIcon className='text-xl mr-[6px]' />
         <span>Billing</span>
       </div>
@@ -165,7 +335,20 @@ const SetupNav = () => {
         <FaxIcon className='text-xl mr-[6px]' />
         <span>Fax</span>
       </div>
-      <div className='flex items-center'>
+      <div
+        className='flex items-center'
+        onMouseEnter={() => handleMouseEnter(setHoverAnnoncement)}
+        onMouseLeave={() => handleMouseLeave(setHoverAnnoncement)}
+      >
+        {hoverAnnouncement && (
+          <div className='relative'>
+            <HoverNavList
+              menuList={announcements}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          </div>
+        )}
         <AnnouncementIcon className='text-xl mr-[6px]' />
         <span>Announcements</span>
       </div>
