@@ -26,6 +26,8 @@ export const ColumnFilterDataGrid = (
     ...filterableValues,
   })
 
+  const [searchInput, setSearchInput] = useState('')
+
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -44,6 +46,16 @@ export const ColumnFilterDataGrid = (
       [event.target.name]: event.target.checked,
     })
   }
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchInput(event.target.value)
+  }
+
+  const filteredItems = Object.keys(filterValues).filter(key =>
+    key.toLowerCase().includes(searchInput.toLowerCase())
+  )
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -65,7 +77,7 @@ export const ColumnFilterDataGrid = (
         slotProps={{
           paper: {
             style: {
-              height: '250px',
+              height: '300px',
               backgroundColor: '#2A2D38',
               color: 'white',
               display: 'flex',
@@ -106,14 +118,22 @@ export const ColumnFilterDataGrid = (
               type='text'
               className='border-0 text-white bg-[#2A2D38] focus:border-0 focus:outline-0'
               placeholder='Search...'
+              onChange={handleSearchInputChange}
             />
           </div>
         )}
         <div className='flex justify-center'>
           <hr className=' w-[90%] border-[#1976d2]' />
         </div>
-        <div style={{ flex: 1, overflowY: 'auto' }}>
-          {Object.keys(filterValues).map(key => (
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            maxHeight: '150px',
+            height: '150px',
+          }}
+        >
+          {filteredItems.map(key => (
             <div key={key}>
               <MenuItem>
                 <FormControlLabel
@@ -131,8 +151,32 @@ export const ColumnFilterDataGrid = (
             </div>
           ))}
         </div>
-        <div style={{ padding: '10px', backgroundColor: '#2A2D38' }}>
-          hello world
+        <div className='ml-3 mt-4'>
+          <Button
+            variant='outlined'
+            size='small'
+            className='mr-3'
+            sx={{
+              textTransform: 'none',
+              fontWeight: 900,
+              borderColor: '#444750',
+              color: 'red',
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='outlined'
+            size='small'
+            className='mr-3'
+            sx={{
+              textTransform: 'none',
+              fontWeight: 900,
+              borderColor: '#444750',
+            }}
+          >
+            Apply
+          </Button>
         </div>
       </Menu>
     </div>
