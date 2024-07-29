@@ -1,6 +1,8 @@
 'use client'
 
-import { useMemo } from 'react'
+import { SetStateAction, useMemo, useState } from 'react'
+
+import PatientData from '@/app/setup/users/hooks/patient'
 
 import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
@@ -8,6 +10,7 @@ import { gridColumns } from '@/app/setup/users/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
 
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
+import { colors, toolbarClasses } from '@mui/material'
 
 const formatDate = (date: number | null) => {
   if (!date) {
@@ -21,6 +24,9 @@ const formatDate = (date: number | null) => {
     unformattedDate.getFullYear(), // Year (YYYY)
   ].join('-')
 }
+
+const rowCount = exampleRows.count
+const pages = exampleRows.pages
 
 const exampleRow = exampleRows.records.map(patientData => {
   return {
@@ -59,17 +65,37 @@ const customToolBar = () => (
 )
 
 const PatientsPage = () => {
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 30,
+  })
+
   const columns = useMemo(() => [...gridColumns], [])
+
+  const handlePaginationModelChange = async (newPaginationModel: {
+    page: number
+    pageSize: number
+  }) => {
+    setPaginationModel(newPaginationModel)
+
+    //TODO: request backend and get data also
+    // const { patientMethods } = PatientData()
+    // await patientMethods.getPatients()
+    // console.log(newPaginationModel)
+  }
 
   return (
     <div className='min-w-[100vw]  max-h-[90%] min-h-[83%] h-1'>
       <CustomisedDataGrid
         columns={columns}
         rows={exampleRow}
+        paginationMode='server'
+        rowCount={rowCount}
         disableEval
         disableColumnMenu
         disableColumnResize
         checkboxSelection
+        disableColumnSorting
         columnHeaderHeight={40}
         rowHeight={40}
         getRowSpacing={param => ({
@@ -78,6 +104,8 @@ const PatientsPage = () => {
         })}
         className='m-4 bg-[#2A2D38] text-white'
         pageSizeOptions={[30, 50, 100]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={handlePaginationModelChange}
         initialState={{
           pagination: { paginationModel: { pageSize: 30, page: 0 } },
         }}

@@ -16,6 +16,7 @@ import {
   CustomTextField,
   CustomNumberField,
 } from '../ui/custom-components'
+import useLogin from './hooks/useLogin'
 
 const defaultFormFields = {
   phoneNumber: '',
@@ -41,6 +42,8 @@ const Page = () => {
   const [isVisiblePassword, setIsvisiblePassword] = useState(false)
 
   const [formFields, setFormFields] = useState(defaultFormFields)
+
+  const { loginMethods } = useLogin()
 
   useEffect(() => {
     setIsnotification(requestNotificationPermission())
@@ -129,10 +132,10 @@ const Page = () => {
           <Link href={'/login/forgot-password'}>Forgot Password?</Link>
           <div className='flex justify-end mt-3 h-10'>
             <CustomButton
-              onClick={handleLogin}
+              onClick={loginMethods.handleLogin}
               variant='contained'
               disableElevation
-              disabled={isNotification}
+              disabled={false}
             >
               <div
                 className={`flex jsutify-between items-center gap-2 ${

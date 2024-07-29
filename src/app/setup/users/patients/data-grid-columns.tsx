@@ -7,21 +7,25 @@ import { GridColDef } from '@mui/x-data-grid'
 import { ActivationStatus } from '@/app/types/data-grid-rows/patients.type'
 
 import { GridRenderCellParams } from '@mui/x-data-grid'
+import { ColumnFilterDataGrid } from '@/app/components/filter-column-data-grid/'
 
-import Button from '@mui/material/Button'
+const rpmStatusCellRender = ({
+  row: { rpmStatus },
+}: {
+  row: { rpmStatus: keyof typeof ActivationStatus }
+}) => {
+  const status = ActivationStatus[rpmStatus]
+  const backgroundColor =
+    statusCellBackgroundColourMapping[status] || 'bg-black'
 
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  IconButton,
-  Menu,
-  MenuItem,
-  MenuList,
-  Tooltip,
-} from '@mui/material'
-import { FilterList } from '@mui/icons-material'
-import { SetStateAction, useState } from 'react'
+  return (
+    <span
+      className={`${backgroundColor} leading-[30px] w-4/5 rounded-3xl flex justify-center`}
+    >
+      {status}
+    </span>
+  )
+}
 
 // TODO: color for some properties are not assigned
 const statusCellBackgroundColourMapping = {
@@ -61,140 +65,25 @@ const FlagCellRender = (params: GridRenderCellParams) =>
     '--'
   )
 
-const rpmStatusCellRender = ({
-  row: { rpmStatus },
-}: {
-  row: { rpmStatus: keyof typeof ActivationStatus }
-}) => {
-  const status = ActivationStatus[rpmStatus]
-  const backgroundColor =
-    statusCellBackgroundColourMapping[status] || 'bg-black'
-
-  return (
-    <span
-      className={`${backgroundColor} leading-[30px] w-4/5 rounded-3xl flex justify-center`}
-    >
-      {status}
-    </span>
-  )
-}
-
-// TODO:
-// move to another file
-const RpmStatusColumnFilter = () => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const [filterValues, setFilterValues] = useState<{ [key: string]: boolean }>({
-    Referred: false,
-    Terminated: false,
-    'Device Assigned': false,
-    Active: false,
-    Inactive: false,
-    'Training Scheduled': false,
-    'Did Not Answer': false,
-    Accepted: false,
-    Declined: false,
-    'Insurance verified': false,
-  })
-
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const handleFilterChange = (event: {
-    target: { name: any; checked: any }
-  }) => {
-    setFilterValues({
-      ...filterValues,
-      [event.target.name]: event.target.checked,
-    })
-  }
-
-  return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <strong className='mr-3'>RPM Status</strong>
-      <Tooltip title='Filter'>
-        <IconButton
-          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-            handleClick(event)
-          }
-          size='small'
-        >
-          <FilterList />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        slotProps={{
-          paper: {
-            style: {
-              height: '250px',
-              backgroundColor: '#2A2D38',
-              color: 'white',
-            },
-          },
-        }}
-      >
-        <div className='ml-3 mt-1'>
-          <Button
-            variant='outlined'
-            size='small'
-            className='mr-3'
-            sx={{
-              textTransform: 'none',
-              fontWeight: 900,
-              borderColor: '#444750',
-            }}
-          >
-            Select all
-          </Button>
-          <Button
-            variant='outlined'
-            size='small'
-            sx={{
-              textTransform: 'none',
-              fontWeight: 900,
-              borderColor: '#444750',
-            }}
-          >
-            Clear
-          </Button>
-        </div>
-        <div className='flex justify-center'>
-          <hr className='mt-2 w-[90%] border-[#1976d2]' />
-        </div>
-        {Object.keys(filterValues).map(key => (
-          <MenuItem key={key}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={filterValues[key]}
-                  onChange={handleFilterChange}
-                  name={key}
-                  sx={{ color: 'white', fontSize: '12px' }}
-                />
-              }
-              label={key}
-            />
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
-  )
+//TODO: Move me
+const rmpColumnFilterableValues = {
+  Referred: false,
+  Terminated: false,
+  'Device Assigned': false,
+  Active: false,
+  Inactive: false,
+  'Training Scheduled': false,
+  'Did Not Answer': false,
+  Accepted: false,
+  Declined: false,
+  'Insurance verified': false,
 }
 
 export const gridColumns: GridColDef[] = [
   {
     field: 'flag',
     headerName: 'FLAG',
-    minWidth: 50,
+    minWidth: 55,
     flex: 0.5,
     headerClassName: 'bg-[#686868]',
     type: 'boolean',
@@ -289,14 +178,14 @@ export const gridColumns: GridColDef[] = [
   },
   {
     field: 'rpmStatus',
-    headerName: 'RPM Status',
     minWidth: 200,
     flex: 2,
     type: 'string',
     headerClassName: 'bg-[#686868]',
     sortable: false,
     renderCell: rpmStatusCellRender,
-    renderHeader: RpmStatusColumnFilter,
+    renderHeader: () =>
+      ColumnFilterDataGrid('RPM Status', rmpColumnFilterableValues, true),
   },
   {
     field: 'comment',
@@ -308,10 +197,11 @@ export const gridColumns: GridColDef[] = [
   },
   {
     field: 'practice',
-    headerName: 'Practice (s) ',
     minWidth: 150,
     flex: 1.5,
     type: 'string',
+    renderHeader: () =>
+      ColumnFilterDataGrid('Practice (s)', rmpColumnFilterableValues, true),
     headerClassName: 'bg-[#686868]',
   },
   {
@@ -336,7 +226,15 @@ export const gridColumns: GridColDef[] = [
     minWidth: 150,
     flex: 1.5,
     type: 'string',
-    valueGetter: value => (value ? value : '--'),
+    valueGetter: (value: string) =>
+      value
+        ? value
+            .split('_')
+            .map(
+              word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+            )
+            .join(' ')
+        : '--',
     headerClassName: 'bg-[#686868]',
   },
   {
