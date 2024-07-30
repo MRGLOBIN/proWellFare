@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 import { DataGrid } from '@mui/x-data-grid'
+import { gridClasses } from '@mui/material'
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
@@ -134,7 +135,7 @@ export const CustomisedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   '& .MuiDataGrid-row': {
     borderBottom: 'none',
-    backgroundColor: '#444750',
+    // backgroundColor: '#444750',
     '&:hover': {
       backgroundColor: '#4E515A',
     },

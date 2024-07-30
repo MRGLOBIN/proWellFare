@@ -12,8 +12,6 @@ import {
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
-// TODO:
-// move to another file
 export const ColumnFilterDataGrid = (
   ColumnHeaderIcon: React.FC,
   columnName: string,

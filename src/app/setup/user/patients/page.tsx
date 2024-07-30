@@ -1,6 +1,6 @@
 'use client'
 
-import { SetStateAction, useMemo, useState } from 'react'
+import { SetStateAction, useEffect, useMemo, useState } from 'react'
 
 import PatientData from '@/app/setup/user/hooks/patient'
 
@@ -10,7 +10,6 @@ import { gridColumns } from '@/app/setup/user/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
 
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
-import { colors, toolbarClasses } from '@mui/material'
 
 const formatDate = (date: number | null) => {
   if (!date) {
@@ -45,7 +44,9 @@ const exampleRow = exampleRows.records.map(patientData => {
     mobile: patientData.user.mobile,
     refferedOn: formatDate(patientData.referralDate),
     registerOn: formatDate(patientData.dateCreated),
-    activationDate: 'unknown to me',
+    activationDate: patientData.user.isActivated
+      ? formatDate(patientData.user.dateCreated)
+      : '--',
     preAuthDate: formatDate(patientData.preAuthorizationDate),
     provider: patientData.primaryDoctorName,
     rpmStatus: patientData.activationStatus,
@@ -58,6 +59,45 @@ const exampleRow = exampleRows.records.map(patientData => {
   }
 })
 
+const calcRowsData = data => {
+  const newData = data.records.map(patientData => {
+    return {
+      id: patientData.patientId,
+      flag: patientData.flag,
+      patientName: `${patientData.user.firstName} ${patientData.user.lastName}`,
+      careGiver:
+        patientData.caregiverFirstName || patientData.caregiverLastName
+          ? `${patientData.caregiverFirstName || ''} ${
+              patientData.caregiverLastName || ''
+            }`.trim()
+          : '--',
+      regNo: patientData.hospitalNo,
+      email: patientData.user.email,
+      birthDate: patientData.user.birthDateString,
+      mobile: patientData.user.mobile,
+      refferedOn: formatDate(patientData.referralDate),
+      registerOn: formatDate(patientData.dateCreated),
+      activationDate: patientData.user.isActivated
+        ? formatDate(patientData.user.dateCreated)
+        : '--',
+      preAuthDate: formatDate(patientData.preAuthorizationDate),
+      provider: patientData.primaryDoctorName,
+      rpmStatus: patientData.activationStatus,
+      comments: patientData.CommentToPatients,
+      practice: patientData.healthcareFacilityName,
+      insuranceCompany: patientData.insurancePlan.insuranceCompany.name,
+      insurancePlan: patientData.insurancePlan.plan,
+      insuranceStatus: patientData.insuranceStatus,
+      copayAmount: patientData.copayAmount,
+    }
+  })
+
+  return {
+    rows: data.count,
+    records: newData,
+  }
+}
+
 const customToolBar = () => (
   <GridToolbarContainer sx={{ color: 'white' }}>
     <GridToolbarExport />
@@ -65,10 +105,30 @@ const customToolBar = () => (
 )
 
 const PatientsPage = () => {
+  const [rowData, setRowData] = useState<{ rows: number; records: any }>({
+    rows: 0,
+    records: [],
+  })
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 30,
   })
+
+  const { patientMethods } = PatientData()
+
+  useEffect(() => {
+    async function getPatientsData() {
+      const newRowsData = await patientMethods.getPatients(
+        true,
+        paginationModel.page + 1,
+        paginationModel.pageSize,
+        ''
+      )
+
+      setRowData(calcRowsData(newRowsData))
+    }
+    getPatientsData()
+  }, [paginationModel])
 
   const columns = useMemo(() => [...gridColumns], [])
 
@@ -77,20 +137,15 @@ const PatientsPage = () => {
     pageSize: number
   }) => {
     setPaginationModel(newPaginationModel)
-
-    //TODO: request backend and get data also
-    // const { patientMethods } = PatientData()
-    // await patientMethods.getPatients()
-    // console.log(newPaginationModel)
   }
 
   return (
     <div className='min-w-[100vw]  max-h-[90%] min-h-[83%] h-1'>
       <CustomisedDataGrid
         columns={columns}
-        rows={exampleRow}
+        rows={rowData.records}
         paginationMode='server'
-        rowCount={rowCount}
+        rowCount={rowData.rows}
         disableEval
         disableColumnMenu
         disableColumnResize
@@ -98,6 +153,11 @@ const PatientsPage = () => {
         disableColumnSorting
         columnHeaderHeight={40}
         rowHeight={40}
+        getRowClassName={params => {
+          return params.indexRelativeToCurrentPage % 2 === 0
+            ? 'bg-[#444750]'
+            : 'bg-[#2a2d38]'
+        }}
         getRowSpacing={param => ({
           top: param.isFirstVisible ? 2 : 0,
           bottom: param.isLastVisible ? 2 : 0,
