@@ -5,9 +5,14 @@ const usePatientData = () => {
     facility: boolean,
     page: number,
     per_page: number,
-    search: string
+    search: string,
+    activationStatus: string
   ) => {
-    const base_url = `http://localhost:3000/rms/v1/healthcare-facility/patients?facility=${facility}&page=${page}&per_page=${per_page}&search=${search}`
+    const base_url =
+      // 'http://localhost:4200/rms/v1/healthcare-facility/patients?facility=true&page=1&per_page=30&search=suman&activationStatus=%5B%22REFERRED%22%5D'
+      `http://localhost:3000/rms/v1/healthcare-facility/patients?facility=${facility}&page=${page}&per_page=${per_page}&search=${search}${
+        activationStatus ? `&activationStatus=["${activationStatus}"]` : ''
+      }`
     const response = await fetch(base_url, {
       method: 'GET',
       headers: {

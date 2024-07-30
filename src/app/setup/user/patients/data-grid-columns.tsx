@@ -51,7 +51,7 @@ const CommentCellRenderer = (params: GridRenderCellParams) => {
       <span className='text-[#B5D7E4]'>
         {employee?.user.fullName
           .split(' ')
-          .map((word: string) => word[0].toUpperCase())
+          .map((word: string) => word[0]?.toUpperCase())
           .join('')}{' '}
         -{' '}
       </span>{' '}
