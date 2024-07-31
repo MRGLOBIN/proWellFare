@@ -61,7 +61,10 @@ const exampleRow = exampleRows.records.map(patientData => {
 })
 
 const calcRowsData = (data: { records: any[]; count: any }) => {
-  if (!data) return { rows: 0, records: [] }
+  if (!data) {
+    console.log(data)
+    return { rows: 0, records: [] }
+  }
   const newData = data.records?.map(
     (patientData: {
       patientId: any
@@ -176,7 +179,7 @@ const PatientsPage = () => {
       <div className='min-w-[100vw]  max-h-[90%] min-h-[83%] h-1'>
         <CustomisedDataGrid
           columns={columns}
-          rows={rowData.records}
+          rows={rowData?.records}
           paginationMode='server'
           rowCount={rowData.rows}
           disableEval
