@@ -4,7 +4,8 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 import { DataGrid } from '@mui/x-data-grid'
-import { gridClasses } from '@mui/material'
+import { gridClasses, TablePagination } from '@mui/material'
+import { Component } from 'react'
 
 export const CustomTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
@@ -166,5 +167,31 @@ export const CustomisedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   '& .MuiDataGrid-columnSeparator': {
     display: 'none',
+  },
+}))
+
+export const Paginator = styled(
+  (props: {
+    count: number
+    page: number
+    onPageChange: (
+      event: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number
+    ) => void
+    rowsPerPage: number
+    onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    rowsPerPageOptions: number[]
+  }) => <TablePagination {...props} component='div' />
+)(({ theme }) => ({
+  backgroundColor: '#292d39',
+  color: 'rgb(186, 187, 190)',
+  borderRadius: '4px',
+
+  '& .MuiTablePagination-toolbar': {
+    height: '65px',
+  },
+
+  '& .MuiTablePagination-selectIcon': {
+    color: 'rgb(186, 187, 190)',
   },
 }))

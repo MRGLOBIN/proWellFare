@@ -1,121 +1,156 @@
+'use client'
+
+import ObservationCard from '@/app/components/observation-card'
+
+import useObervationData from '../hooks/observation-data'
+import { useEffect, useState } from 'react'
+import { Paginator } from '@/app/ui/custom-components'
+
+import SearchIcon from '@mui/icons-material/Search'
+import { Button, IconButton } from '@mui/material'
+import ViewQuiltIcon from '@mui/icons-material/ViewQuilt'
+import ViewListIcon from '@mui/icons-material/ViewList'
+
 import Image from 'next/image'
 
+// TODO:
+// move me
+const filterCheckBoxColors = [
+  {
+    color: '#01b050',
+    show: false,
+  },
+  {
+    color: '#d8d800',
+    show: false,
+  },
+  {
+    color: '#ff8a00',
+    show: false,
+  },
+  {
+    color: '#fa0000',
+    show: false,
+  },
+  {
+    color: 'white',
+    show: false,
+  },
+  {
+    color: '#414141',
+    show: false,
+  },
+]
+
+//TODO:
+//oerderable Icon and status color also numberic number status color
 const ObservationPage = () => {
+  const [observationData, setObservationData] = useState(null)
+  const { ObservationMethods } = useObervationData()
+
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(30)
+  const [filterCheckBoxs, setFilterCheckBoxs] = useState(filterCheckBoxColors)
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage)
+  }
+
+  const handleOnPressButton = (index: number) => {
+    const newFilterCheckBoxs = filterCheckBoxs.map((item, i) =>
+      i === index ? { ...item, show: !item.show } : item
+    )
+    setFilterCheckBoxs(newFilterCheckBoxs)
+  }
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newRowsPerPage = parseInt(event.target.value, 10)
+    setRowsPerPage(newRowsPerPage)
+    setPage(0) // Reset to first page
+  }
+
+  useEffect(() => {
+    async function getData() {
+      const data = await ObservationMethods.getObservationData({
+        page: page + 1,
+        per_page: rowsPerPage,
+      })
+      setObservationData(data)
+    }
+    getData()
+  }, [page, rowsPerPage])
   return (
-    <article className='w-full  flex flex-wrap bg-[#20222A] drop-shadow-2xl shadow-2xl text-white'>
-      <section className='flex flex-grow  min-w-[200px]  bg-[#30343D] rounded-md text-xs m-2 p-2'>
-        <div className='h-full w-3 rounded-tl-md rounded-bl-md bg-green-500'></div>
-        <div className='flex flex-col justify-between h-full w-full mx-2 py-1'>
-          <div className='flex justify-between w-full pt-1'>
-            <div className='font-semibold'>
-              <p>Ashan Farooq</p>
-              <p>RPM-00084</p>
-              <p>Medication</p>
-            </div>
-            <div className='pr-1 pt-1 text-[#848484] text-[10px] font-light'>
-              <p className='text-ellipsis overflow-hidden max-w-12 whitespace-nowrap'>
-                Medication Taken
-              </p>
-              <p className='text-center text-green-500 text-sm font-normal'>
-                1
-              </p>
-            </div>
-          </div>
-          <div className='my-1'>
+    <>
+      <div className='bg-[#252831] p-2'>
+        <header className='flex items-center mx-4'>
+          <h1 className='text-white text-xl font-semibold'>Observations</h1>
+          <IconButton>
+            <SearchIcon sx={{ color: 'white' }} />
+          </IconButton>
+          <div className='mx-2'>
             <Image
-              src='/images/Placeholder-1.svg'
-              alt='condition place holder image'
+              src={'/images/StandardHighlighted.svg'}
+              alt='layout change button'
+              height={40}
               width={40}
-              height={30}
-            />
+            ></Image>
           </div>
-          <div className='border-t border-dashed mx-[-8px] my-2' />
-          <div className='flex justify-between items-center'>
-            <div className='flex items-center text-[10px] font-normal'>
-              <Image
-                src='/images/ClockWhite.svg'
-                alt='clock'
-                width={20}
-                height={20}
-              />
-              <span className='mx-1'>Acq.</span>
-              <span>06-24-2024</span>
-              <span>2:44 PM</span>
-              <Image
-                src='/images/ArrowRightWhite.svg'
-                alt='Expand button'
-                width={25}
-                height={20}
-              />
-            </div>
-            <div>
-              <Image
-                src='/images/MoreWhite.svg'
-                alt='more options'
-                width={25}
-                height={20}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className='flex flex-grow  min-w-[200px]  bg-[#30343D] rounded-md text-xs m-2 p-2'>
-        <div className='h-full w-3 rounded-tl-md rounded-bl-md bg-green-500'></div>
-        <div className='flex flex-col justify-between h-full w-full mx-2 py-1'>
-          <div className='flex justify-between w-full pt-1'>
-            <div className='font-semibold'>
-              <p>Ashan Farooq</p>
-              <p>RPM-00084</p>
-              <p>Medication</p>
-            </div>
-            <div className='pr-1 pt-1 text-[#848484] text-[10px] font-light'>
-              <p className='text-ellipsis overflow-hidden max-w-12 whitespace-nowrap'>
-                Medication Taken
-              </p>
-              <p className='text-center text-green-500 text-sm font-normal'>
-                1
-              </p>
-            </div>
-          </div>
-          <div className='my-1'>
+          <div>
             <Image
-              src='/images/Placeholder-1.svg'
-              alt='condition place holder image'
+              src='/images/ListHighlighted.svg'
+              alt='layout change button'
               width={40}
-              height={30}
+              height={40}
+            ></Image>
+          </div>
+          <div className='flex justify-between flex-1 mx-4 max-w-48'>
+            {filterCheckBoxs.map((filterColor, index: number) => (
+              <Button
+                onClick={() => handleOnPressButton(index)}
+                key={index}
+                sx={{
+                  border: `4px solid ${filterColor.color}`,
+                  minWidth: '25px',
+                  minHeight: '25px ',
+                  borderRadius: '3px',
+                  backgroundColor: filterColor.show ? filterColor.color : '',
+                  '&:hover': {
+                    backgroundColor: filterColor.show ? filterColor.color : '',
+                  },
+                }}
+              />
+            ))}
+          </div>
+        </header>
+        <article className='w-full  flex flex-wrap text-white h-full max-h-[68vh] overflow-y-scroll'>
+          {observationData?.records?.map((record: any, index: number) => (
+            <ObservationCard
+              key={index}
+              colorStatus={record.colorStatus}
+              fullName={record.patient.user.fullName}
+              hospitalNumber={record.patient.hospitalNo}
+              orderableName={record.orderable.name}
+              orderableIcon={record.orderable.icon}
+              acquisitionTime={record.acquisitionTime}
+              resultableValues={record.resultableValues}
             />
-          </div>
-          <div className='border-t border-dashed mx-[-8px] my-2' />
-          <div className='flex justify-between items-center'>
-            <div className='flex items-center text-[10px] font-normal'>
-              <Image
-                src='/images/ClockWhite.svg'
-                alt='clock'
-                width={20}
-                height={20}
-              />
-              <span className='mx-1'>Acq.</span>
-              <span>06-24-2024</span>
-              <span>2:44 PM</span>
-              <Image
-                src='/images/ArrowRightWhite.svg'
-                alt='Expand button'
-                width={25}
-                height={20}
-              />
-            </div>
-            <div>
-              <Image
-                src='/images/MoreWhite.svg'
-                alt='more options'
-                width={25}
-                height={20}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-    </article>
+          ))}
+        </article>
+      </div>
+      <Paginator
+        count={observationData?.count || 0}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[30, 50, 100, 500]}
+      />
+    </>
   )
 }
 
