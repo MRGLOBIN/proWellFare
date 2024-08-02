@@ -32,42 +32,42 @@ const CommandCenter = [
   {
     icon: VisibilityIcon,
     title: 'Observations',
-    link: '/setup/conmmand-center/observations',
+    link: '/setup/command-center/observations',
   },
   {
     icon: LiveTvIcon,
     title: 'Live Session',
-    link: 'setup/conmmand-center/session-list',
+    link: 'setup/command-center/session-list',
   },
   {
     icon: EventNoteIcon,
     title: 'Home Admissions',
-    link: '/setup/conmmand-center/admission',
+    link: '/setup/command-center/admission',
   },
   {
     icon: PermPhoneMsgIcon,
     title: 'Follow Up Calls',
-    link: '/setup/conmmand-center/follow-up-schedule',
+    link: '/setup/command-center/follow-up-schedule',
   },
   {
     icon: FlipIcon,
     title: 'Patient App Monitoring',
-    link: '/setup/conmmand-center/app-moniture-list',
+    link: '/setup/command-center/app-moniture-list',
   },
   {
     icon: HeadphonesIcon,
     title: 'Call Recordings',
-    link: '/setup/conmmand-center/call-recordings',
+    link: '/setup/command-center/call-recordings',
   },
   {
     icon: AttachFileIcon,
     title: 'IGMS',
-    link: '/setup/conmmand-center/igms',
+    link: '/setup/command-center/igms',
   },
   {
     icon: AttachFileIcon,
     title: 'Hand Over',
-    link: '/setup/conmmand-center/hand-over',
+    link: '/setup/command-center/hand-over',
   },
 ]
 

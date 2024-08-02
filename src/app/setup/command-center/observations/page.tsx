@@ -39,12 +39,14 @@ const filterCheckBoxColors = [
 //TODO:
 //oerderable Icon and status color also numberic number status color
 const ObservationPage = () => {
-  const [observationData, setObservationData] = useState(null)
   const { ObservationMethods } = useObervationData()
+  const [observationData, setObservationData] = useState(null)
 
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(30)
   const [filterCheckBoxs, setFilterCheckBoxs] = useState(filterCheckBoxColors)
+
+  const [selectedStatus, setSelectedStatus] = useState([])
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -81,11 +83,15 @@ const ObservationPage = () => {
   return (
     <>
       <div className='bg-[#252831] p-2 flex flex-col h-full justify-between'>
-        <ObservationHeader
-          filterCheckBoxs={filterCheckBoxs}
-          handleOnPressButton={handleOnPressButton}
-        />
-        <ObservationTable observationData={observationData} />
+        <div>
+          <ObservationHeader
+            filterCheckBoxs={filterCheckBoxs}
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus}
+            handleOnPressButton={handleOnPressButton}
+          />
+          <ObservationTable observationData={observationData} />
+        </div>
         <Paginator
           count={observationData?.count || 0}
           page={page}
