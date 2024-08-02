@@ -186,9 +186,18 @@ export const Paginator = styled(
   backgroundColor: '#292d39',
   color: 'rgb(186, 187, 190)',
   borderRadius: '4px',
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'end',
+  alignItems: 'center',
 
   '& .MuiTablePagination-toolbar': {
-    height: '65px',
+    minHeight: '65px',
+    height: 'auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'end',
   },
 
   '& .MuiTablePagination-selectIcon': {

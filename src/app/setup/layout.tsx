@@ -5,8 +5,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <div className='bg-[#181B26] text-[#BABBBE] h-screen flex flex-col'>
       <SetupHeader />
       <SetupNav />
-      <main className='flex-1'>{children}</main>
-      <footer className='flex items-center mb-2 ml-4 text-white font-bold text-[13px]'>
+      <main className='flex flex-1 flex-col'>{children}</main>
+      <footer className='flex items-center pb-2 pl-3 min-h-8 text-white font-bold text-[13px] bg-[#1C1E24]'>
         <p>Session will expire in</p>
         <span className='mx-1'>30:29</span>
         <div className='flex justify-between w-12 mx-2'>
