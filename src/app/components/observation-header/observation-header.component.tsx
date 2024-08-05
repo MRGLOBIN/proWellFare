@@ -1,14 +1,21 @@
-import { CheckBox } from '@mui/icons-material'
+'use client'
+
+import { useState } from 'react'
+
+import { IFilterCheckBoxeColor } from '@/app/setup/command-center/observations/page'
+
 import SearchIcon from '@mui/icons-material/Search'
 import {
   Button,
   Checkbox,
-  Chip,
   IconButton,
+  InputBase,
   MenuItem,
   Select,
-  TextField,
+  styled,
 } from '@mui/material'
+
+import { SelectChangeEvent } from '@mui/material'
 
 import Image from 'next/image'
 
@@ -24,35 +31,60 @@ const status = [
 ]
 
 const ObservationHeader = ({
+  gridLayout,
+  setGridLayout,
   filterCheckBoxs,
   handleOnPressButton,
   selectedStatus,
   setSelectedStatus,
+}: {
+  gridLayout: boolean
+  setGridLayout: React.Dispatch<React.SetStateAction<boolean>>
+  filterCheckBoxs: IFilterCheckBoxeColor[]
+  selectedStatus: string[]
+  setSelectedStatus: React.Dispatch<React.SetStateAction<string[]>>
+  handleOnPressButton: (index: number) => void
 }) => {
-  const handleStatusSelect = (event: any) => {
-    setSelectedStatus(event.target.value)
+  const handleLayoutChangeToGrid = () => {
+    setGridLayout(true)
+  }
+
+  const handleLayoutChangeToCards = () => {
+    setGridLayout(false)
+  }
+
+  const handleStatusSelect = (event: SelectChangeEvent<string[]>) => {
+    setSelectedStatus(event.target.value as string[])
   }
   return (
-    <header className='flex items-center flex-wrap justify-between mx-4'>
+    <header className='flex items-center flex-wrap justify-between mx-2'>
       <section className='flex flex-wrap items-center'>
-        <h1 className='text-white text-xl font-semibold'>Observations</h1>
-        <IconButton className=''>
-          <SearchIcon sx={{ color: 'white' }} />
-        </IconButton>
+        <h1 className='text-white text-2xl font-semibold'>Observations</h1>
+        <SearchComponent />
         <div className='mx-2'>
           <Image
-            src={'/images/StandardHighlighted.svg'}
+            src={`${
+              gridLayout
+                ? '/images/StandardNotHighlighted.svg'
+                : '/images/StandardHighlighted.svg'
+            }`}
             alt='layout change button'
             height={40}
             width={40}
+            onClick={handleLayoutChangeToCards}
           ></Image>
         </div>
         <div>
           <Image
-            src='/images/ListHighlighted.svg'
+            src={`${
+              gridLayout
+                ? '/images/ListHighlighted.svg'
+                : '/images/ListNotHighlighted.svg'
+            }`}
             alt='layout change button'
             width={40}
             height={40}
+            onClick={handleLayoutChangeToGrid}
           ></Image>
         </div>
         <div className='flex justify-between items-center flex-1 mx-4 max-w-48'>
@@ -87,7 +119,7 @@ const ObservationHeader = ({
           fullWidth
           renderValue={selected => {
             if (selected.length === 0) {
-              return 'Select an option'
+              return 'Select Status'
             }
             const labels = selected.map((value: string) => {
               const label = status.find(status => status.value === value)?.label
@@ -176,3 +208,47 @@ const ObservationHeader = ({
 }
 
 export default ObservationHeader
+
+const SearchContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+})
+
+interface InputBaseProps {
+  open?: boolean
+}
+
+const SearchInput = styled(InputBase)<InputBaseProps>(({ theme, open }) => ({
+  width: open ? '200px' : '0px',
+  transition: 'width 0.3s ease-in-out',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  backgroundColor: 'rgb(68, 73, 87)',
+  color: 'white',
+  fontWeight: '100',
+
+  borderRadius: '4px',
+  paddingLeft: open ? theme.spacing(1) : '0px',
+  marginLeft: theme.spacing(1),
+}))
+
+const SearchButton = styled(IconButton)({
+  color: 'white',
+})
+
+const SearchComponent = () => {
+  const [open, setOpen] = useState(false)
+
+  const handleSearchClick = () => {
+    setOpen(prevOpen => !prevOpen)
+  }
+
+  return (
+    <SearchContainer>
+      <SearchButton onClick={handleSearchClick}>
+        <SearchIcon />
+      </SearchButton>
+      <SearchInput open={open} placeholder='Search...' />
+    </SearchContainer>
+  )
+}

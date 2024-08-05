@@ -9,6 +9,11 @@ import ObservationTable from '@/app/components/observation-table/observation-tab
 
 // TODO:
 // move me
+export interface IFilterCheckBoxeColor {
+  color: string
+  show: boolean
+}
+
 const filterCheckBoxColors = [
   {
     color: '#01b050',
@@ -39,14 +44,14 @@ const filterCheckBoxColors = [
 //TODO:
 //oerderable Icon and status color also numberic number status color
 const ObservationPage = () => {
-  const { ObservationMethods } = useObervationData()
+  const { ObservationMethods, getPractices } = useObervationData()
   const [observationData, setObservationData] = useState(null)
 
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(30)
   const [filterCheckBoxs, setFilterCheckBoxs] = useState(filterCheckBoxColors)
-
-  const [selectedStatus, setSelectedStatus] = useState([])
+  const [gridLayout, setGridLayout] = useState(false)
+  const [selectedStatus, setSelectedStatus] = useState<string[]>([])
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -76,22 +81,28 @@ const ObservationPage = () => {
         page: page + 1,
         per_page: rowsPerPage,
       })
+      // const practices = await getPractices()
+      // console.log(practices)
       setObservationData(data)
     }
     getData()
   }, [page, rowsPerPage])
   return (
-    <>
-      <div className='bg-[#252831] p-2 flex flex-col h-full justify-between'>
-        <div>
-          <ObservationHeader
-            filterCheckBoxs={filterCheckBoxs}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-            handleOnPressButton={handleOnPressButton}
-          />
-          <ObservationTable observationData={observationData} />
-        </div>
+    <div className='bg-[#252831] p-2 flex flex-col h-full'>
+      <div className='flex-shrink-0'>
+        <ObservationHeader
+          gridLayout={gridLayout}
+          setGridLayout={setGridLayout}
+          filterCheckBoxs={filterCheckBoxs}
+          selectedStatus={selectedStatus}
+          setSelectedStatus={setSelectedStatus}
+          handleOnPressButton={handleOnPressButton}
+        />
+      </div>
+      <div className='flex-grow overflow-auto'>
+        <ObservationTable observationData={observationData} />
+      </div>
+      <div className='flex-shrink-0'>
         <Paginator
           count={observationData?.count || 0}
           page={page}
@@ -101,7 +112,7 @@ const ObservationPage = () => {
           rowsPerPageOptions={[30, 50, 100, 500]}
         />
       </div>
-    </>
+    </div>
   )
 }
 

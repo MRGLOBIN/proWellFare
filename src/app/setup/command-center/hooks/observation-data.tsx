@@ -24,11 +24,17 @@ const useObervationData = () => {
     per_page: number
   }) => {
     const base_url = `http://localhost:3000/rms/v1/orderable-value/observations?page=${page}&per_page=${per_page}`
-    return await makeRequest(base_url)
+    return makeRequest(base_url)
+  }
+
+  const getPractices = async () => {
+    const base_url = 'http://localhost:3000/rms/v1/healthcare-facility/employee'
+    return makeRequest(base_url)
   }
 
   const ObservationMethods = {
     getObservationData,
+    getPractices,
   }
 
   return { ObservationMethods }

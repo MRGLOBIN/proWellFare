@@ -4,7 +4,7 @@ import './observation-table.style.css'
 
 const ObservationTable = ({ observationData }) => {
   return (
-    <article className='w-full flex flex-1 flex-wrap text-white  max-vh  overflow-y-scroll'>
+    <article className='flex flex-wrap max-vh text-white'>
       {observationData?.records?.map((record: any, index: number) => (
         <ObservationCard
           key={index}
