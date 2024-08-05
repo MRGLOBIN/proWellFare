@@ -1,6 +1,6 @@
 'use client'
 
-import { SetStateAction, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import PatientData from '@/app/setup/user/hooks/patient'
 

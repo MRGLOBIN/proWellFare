@@ -37,12 +37,14 @@ const ObservationHeader = ({
   handleOnPressButton,
   selectedStatus,
   setSelectedStatus,
+  practiceSearchData,
 }: {
   gridLayout: boolean
   setGridLayout: React.Dispatch<React.SetStateAction<boolean>>
   filterCheckBoxs: IFilterCheckBoxeColor[]
   selectedStatus: string[]
   setSelectedStatus: React.Dispatch<React.SetStateAction<string[]>>
+  practiceSearchData: string[]
   handleOnPressButton: (index: number) => void
 }) => {
   const handleLayoutChangeToGrid = () => {

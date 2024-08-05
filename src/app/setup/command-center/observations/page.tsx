@@ -44,14 +44,18 @@ const filterCheckBoxColors = [
 //TODO:
 //oerderable Icon and status color also numberic number status color
 const ObservationPage = () => {
-  const { ObservationMethods, getPractices } = useObervationData()
-  const [observationData, setObservationData] = useState(null)
+  const { ObservationMethods } = useObervationData()
+  const [observationData, setObservationData] = useState<
+    PaginatedResponse<OrderableValueObservation>
+  >({ count: 0, pages: 0, records: [] })
 
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(30)
   const [filterCheckBoxs, setFilterCheckBoxs] = useState(filterCheckBoxColors)
   const [gridLayout, setGridLayout] = useState(false)
   const [selectedStatus, setSelectedStatus] = useState<string[]>([])
+
+  const [practiceSearchData, setPracticeSearchData] = useState<string[]>([])
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -81,8 +85,8 @@ const ObservationPage = () => {
         page: page + 1,
         per_page: rowsPerPage,
       })
-      // const practices = await getPractices()
-      // console.log(practices)
+      const practices = await ObservationMethods.getPractices()
+      console.log(practices)
       setObservationData(data)
     }
     getData()
@@ -97,6 +101,7 @@ const ObservationPage = () => {
           selectedStatus={selectedStatus}
           setSelectedStatus={setSelectedStatus}
           handleOnPressButton={handleOnPressButton}
+          practiceSearchData={practiceSearchData}
         />
       </div>
       <div className='flex-grow overflow-auto'>
@@ -104,7 +109,7 @@ const ObservationPage = () => {
       </div>
       <div className='flex-shrink-0'>
         <Paginator
-          count={observationData?.count || 0}
+          count={observationData.count || 0}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
@@ -117,3 +122,190 @@ const ObservationPage = () => {
 }
 
 export default ObservationPage
+
+// TODO: move me
+// type for practiceSearchData
+export interface PracticeModel {
+  chiPOCName: string
+  healthcareFacilityId: string
+  pocId: any
+  chiPOCId: string
+  tzOffset: number
+  name: string
+  phone: string
+  taxpayerIdentificationNo: string
+  email: string
+  fax: string
+  financialEmail: string
+  financialFax: string
+  enableFax: boolean
+  enableEmail: boolean
+  address: string
+  city: string
+  postalCode: string
+  state: string
+  settings: string
+  percentTax: number
+  discount: number
+  isPercentDiscount: boolean
+  isDeleted: boolean
+  dateCreated: number
+  dateUpdated: number
+}
+
+// TODO: move me
+// type for oderable (select vital filter)
+export type OrderableType =
+  | 'VITAL'
+  | 'HOMECARE'
+  | 'MEDICINE'
+  | 'RADIOLOGY'
+  | 'LAB'
+
+export interface Orderable {
+  orderableId: string
+  name: string
+  abbr?: string
+  icon?: string
+  times?: string
+  instructions?: string
+  orderableType: OrderableType
+  isDeleted?: boolean
+  dateCreated: number
+  dateUpdated: number
+}
+
+// TODO: moveMe
+// general interface for pagination response
+export interface PaginatedResponse<T> {
+  count: number
+  pages: number
+  records: T[]
+}
+
+// TODO: move me
+// type for observation data
+export interface OrderableValueObservation {
+  orderableValueId: string
+  patientId: string
+  comments?: string
+  observationTime?: number
+  acquisitionTime?: number
+  captureTime?: number
+  readingTime?: number
+  status?: OrderableStatus
+  colorStatus?: OrderableColorStatus
+  isValid: boolean
+  patient: ObservationsOrderableValuePatient
+  orderable: ObservationsOrderableValueOrderable
+  resultableValues: ObservationsOrderableValueResultableValue[]
+  liveOrderableValueId: string
+  liveOrderableValue: LiveOrderableValue
+  subjects: any[]
+  USEscalation: ObservationUSEscalation[]
+
+  opr_status?: string
+  rowActions?: any
+  is_manual: boolean
+}
+
+// TODO: move me all
+// dependicies for observation data interface
+export type OrderableStatus =
+  | 'NORMAL'
+  | 'UNHANDLED'
+  | 'ESCALATED'
+  | 'RESPONDED'
+  | 'CLOSED'
+  | 'INVALID'
+  | 'SEEN'
+  | 'HANDLED'
+  | 'ESCALATED_TO_RN'
+  | 'ESCALATED_TO_PRACTICE'
+  | 'ESCALATED_AND_HANDLED'
+
+export type OrderableColorStatus =
+  | 'NORMAL'
+  | 'ABNORMAL'
+  | 'WARNING'
+  | 'CRITICAL'
+  | 'INVALID'
+  | 'UNKNOWN'
+
+export interface ObservationsOrderableValuePatientUser {
+  fullName: string
+  image?: string
+  userId: string
+}
+
+export interface ObservationsOrderableValuePatient {
+  age?: number
+  user: ObservationsOrderableValuePatientUser
+  rmsAdmissions?: PatientAdmissionInfo[]
+  hospitalNo?: string
+}
+
+interface PatientAdmissionInfoHealthcareFacility {
+  healthcareFacilityId: string
+  name: string
+}
+
+export interface PatientAdmissionInfo {
+  rmsAdmissionId: string
+  primaryDoctorId: string
+  healthcareFacility: PatientAdmissionInfoHealthcareFacility
+}
+
+export interface ObservationsOrderableValueOrderable {
+  name: string
+  orderableId: string
+  icon?: string
+}
+
+export interface ObservationsOrderableValueResultableValue {
+  resultableValueId: string
+  textValue?: string
+  numericValue?: number
+  dataValue?: string
+  fileUrls?: string
+  status?: ResultableStatus
+  resultable: ObservationsOrderableValueResultableValueResultable
+
+  urls?: string[]
+}
+
+export interface ObservationsOrderableValueResultableValueResultable {
+  key: string
+  resultUnit?: string
+  resultableId: string
+  dataType: ResultableData
+  name: string
+}
+
+export interface LiveOrderableValue {
+  isLive: boolean
+  cmFile: string
+  deviceInventory: { deviceModel: { deviceModel: string } }
+}
+
+interface ObservationUSEscalation {
+  usEscalationId: string
+  escalationStatus: keyof typeof USEscalationStatus
+}
+
+export type ResultableStatus =
+  | 'CRITICAL_LOW'
+  | 'WARNING_LOW'
+  | 'NORMAL'
+  | 'WARNING_HIGH'
+  | 'CRITIAL_HIGH'
+
+export type ResultableData = 'NUMBER' | 'TEXT' | 'DATA' | 'FILEURL'
+
+export const USEscalationStatus = {
+  OPEN: 'OPEN',
+  ESCALATED_TO_RN: 'ESCALATED_TO_RN',
+  ESCALATED_TO_PRACTICE: 'ESCALATED_TO_PRACTICE',
+  ESCALATED_AND_HANDLED: 'ESCALATED_AND_HANDLED',
+  MARK_CLOSED: 'MARK_CLOSED',
+} as const
