@@ -1,10 +1,10 @@
 'use client'
 
+import { GeneralTable } from '@/app/components/general-table'
+
 import { useEffect, useMemo, useState } from 'react'
 
 import PatientData from '@/app/setup/user/hooks/patient'
-
-import { CustomisedDataGrid } from '@/app/ui/custom-components'
 
 import { gridColumns } from '@/app/setup/user/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
@@ -63,7 +63,7 @@ const exampleRow = exampleRows.records.map(patientData => {
 const calcRowsData = (data: { records: any[]; count: any }) => {
   if (!data) {
     console.log(data)
-    return { rows: 0, records: [] }
+    return { count: 0, records: [] }
   }
   const newData = data.records?.map(
     (patientData: {
@@ -125,24 +125,45 @@ const calcRowsData = (data: { records: any[]; count: any }) => {
   )
 
   return {
-    rows: data.count,
+    count: data.count || 0,
     records: newData,
   }
 }
 
+// TODO: move me
 const customToolBar = () => (
   <GridToolbarContainer sx={{ color: 'white' }}>
     <GridToolbarExport />
   </GridToolbarContainer>
 )
 
+// TODO: move me
+// inteface for pagination model
+export interface IPaginationModel {
+  page: number
+  pageSize: number
+}
+
+// TODO: move me
+export const initialPaginationModel: IPaginationModel = {
+  page: 0,
+  pageSize: 30,
+}
+
+// TODO: move me
+// interface for grid rows data
+export interface IGridRowsData {
+  count: number
+  records: any
+}
+
 const PatientsPage = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [rowData, setRowData] = useState<{ rows: number; records: any }>({
-    rows: 0,
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [rowData, setRowData] = useState<IGridRowsData>({
+    count: 0,
     records: [],
   })
-  const [paginationModel, setPaginationModel] = useState({
+  const [paginationModel, setPaginationModel] = useState<IPaginationModel>({
     page: 0,
     pageSize: 30,
   })
@@ -166,50 +187,10 @@ const PatientsPage = () => {
 
   const columns = useMemo(() => [...gridColumns], [])
 
-  const handlePaginationModelChange = async (newPaginationModel: {
-    page: number
-    pageSize: number
-  }) => {
-    setPaginationModel(newPaginationModel)
-  }
-
   return (
     <>
       <PatientTopBar setSearchQuery={setSearchQuery} />
-      <div className='min-w-[100vw]  max-h-[90%] min-h-[83%] h-1'>
-        <CustomisedDataGrid
-          columns={columns}
-          rows={rowData?.records}
-          paginationMode='server'
-          rowCount={rowData.rows}
-          disableEval
-          disableColumnMenu
-          disableColumnResize
-          checkboxSelection
-          disableColumnSorting
-          columnHeaderHeight={40}
-          rowHeight={40}
-          getRowClassName={params => {
-            return params.indexRelativeToCurrentPage % 2 === 0
-              ? 'bg-[#444750]'
-              : 'bg-[#2a2d38]'
-          }}
-          getRowSpacing={param => ({
-            top: param.isFirstVisible ? 2 : 0,
-            bottom: param.isLastVisible ? 2 : 0,
-          })}
-          className='m-4 bg-[#2A2D38] text-white'
-          pageSizeOptions={[30, 50, 100]}
-          paginationModel={paginationModel}
-          onPaginationModelChange={handlePaginationModelChange}
-          initialState={{
-            pagination: { paginationModel: { pageSize: 30, page: 0 } },
-          }}
-          slots={{
-            toolbar: customToolBar,
-          }}
-        />
-      </div>
+      <GeneralTable columns={columns} rowData={rowData} />
     </>
   )
 }

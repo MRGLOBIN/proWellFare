@@ -6,6 +6,8 @@ import { Paginator } from '@/app/ui/custom-components'
 import { ObservationHeader } from '@/app/components/observation-header'
 
 import ObservationTable from '@/app/components/observation-table/observation-table.component'
+import { GeneralTable } from '@/app/components/general-table'
+import { observationGridColumns } from './data-grid-columns'
 
 // TODO:
 // move me
@@ -104,9 +106,16 @@ const ObservationPage = () => {
           practiceSearchData={practiceSearchData}
         />
       </div>
-      <div className='flex-grow overflow-auto'>
-        <ObservationTable observationData={observationData} />
-      </div>
+      {gridLayout ? (
+        <GeneralTable
+          columns={observationGridColumns}
+          rowData={{ count: 0, records: [] }}
+        />
+      ) : (
+        <div className='flex-grow overflow-auto'>
+          <ObservationTable observationData={observationData} />
+        </div>
+      )}
       <div className='flex-shrink-0'>
         <Paginator
           count={observationData.count || 0}

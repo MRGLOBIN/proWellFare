@@ -12,13 +12,6 @@ import {
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
-// interface IColumnFilterDataProps {
-//   icon:
-//   title: 'Practice (s)'
-//   filterValues: rmpColumnFilterableValues
-//   search: true
-// }
-
 export const ColumnFilterDataGrid = (
   ColumnHeaderIcon: React.FC,
   columnName: string,
