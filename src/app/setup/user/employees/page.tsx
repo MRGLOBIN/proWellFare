@@ -43,19 +43,13 @@ const calcRowData = (data: { count: number; records: User[] }) => {
 const PracticePage = () => {
   const { employeeMethods } = useEmployeeData()
 
-  const handlePaginationModelChange = (
-    newPaginationModel: IPaginationModel
-  ) => {
-    employeeMethods.setPaginationModel(newPaginationModel)
-  }
-
   return (
     <div className='h-full'>
       <GeneralTable
         paginationModel={employeeMethods.paginationModel}
         rowData={calcRowData(employeeMethods.employeeData)}
         columns={employeesColumn}
-        handlePaginationModelChange={handlePaginationModelChange}
+        setPaginationModel={employeeMethods.setPaginationModel}
       />
     </div>
   )

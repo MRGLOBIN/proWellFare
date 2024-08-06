@@ -42,7 +42,7 @@ const PracticePage = () => {
         paginationModel={facuiltyMethods.paginationModel}
         rowData={calcRowData(facuiltyMethods.facilityData)}
         columns={facilityColumns}
-        handlePaginationModelChange={handlePaginationModelChange}
+        setPaginationModel={facuiltyMethods.setPaginationModel}
       />
     </div>
   )

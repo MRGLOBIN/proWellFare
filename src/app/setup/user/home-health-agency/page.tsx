@@ -35,7 +35,7 @@ const HomeHealthAgencyPage = () => {
       paginationModel={homeHealthAgencyMethods.paginationModel}
       rowData={calcRowData(homeHealthAgencyMethods.HomeHealthAgencyData)}
       columns={homeHealthAgencyColumns}
-      handlePaginationModelChange={handlePaginationModelChange}
+      setPaginationModel={homeHealthAgencyMethods.setPaginationModel}
     />
   )
 }

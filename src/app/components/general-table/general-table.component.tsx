@@ -9,19 +9,24 @@ import { CustomisedDataGrid } from '@/app/ui/custom-components'
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 
 import { GridColDef } from '@mui/x-data-grid'
-import { useState } from 'react'
 
 const GeneralTable = ({
   columns,
   rowData,
-  handlePaginationModelChange,
+  setPaginationModel,
   paginationModel,
 }: {
   columns: GridColDef[]
   rowData: IGridRowsData
   paginationModel: IPaginationModel
-  handlePaginationModelChange: (newPaginationModel: IPaginationModel) => void
+  setPaginationModel: React.Dispatch<React.SetStateAction<IPaginationModel>>
 }) => {
+  const handlePaginationModelChange = (
+    newPaginationModel: IPaginationModel
+  ) => {
+    setPaginationModel(newPaginationModel)
+  }
+
   return (
     <div
       style={{ minHeight: 'calc(100% - 100px)' }}

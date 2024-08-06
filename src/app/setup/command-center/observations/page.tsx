@@ -141,7 +141,7 @@ const ObservationPage = () => {
         <GeneralTable
           columns={observationGridColumns}
           rowData={calcRowData(observationData)}
-          handlePaginationModelChange={handlePaginationModelChange}
+          setPaginationModel={setPaginationModel}
           paginationModel={paginationModel}
         />
       ) : (

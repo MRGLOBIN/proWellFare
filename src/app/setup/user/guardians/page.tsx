@@ -35,7 +35,7 @@ const GuardianPage = () => {
         paginationModel={employeeMethods.paginationModel}
         rowData={calcRowData(employeeMethods.guardianData)}
         columns={guaridanColumn}
-        handlePaginationModelChange={handlePaginationModelChange}
+        setPaginationModel={employeeMethods.setPaginationModel}
       />
     </div>
   )

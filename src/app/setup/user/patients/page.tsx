@@ -184,12 +184,6 @@ const PatientsPage = () => {
 
   const columns = useMemo(() => [...gridColumns], [])
 
-  const handlePaginationModelChange = (
-    newPaginationModel: IPaginationModel
-  ) => {
-    setPaginationModel(newPaginationModel)
-  }
-
   return (
     <>
       <PatientTopBar setSearchQuery={setSearchQuery} />
@@ -197,7 +191,7 @@ const PatientsPage = () => {
         columns={columns}
         rowData={rowData}
         paginationModel={paginationModel}
-        handlePaginationModelChange={handlePaginationModelChange}
+        setPaginationModel={setPaginationModel}
       />
     </>
   )

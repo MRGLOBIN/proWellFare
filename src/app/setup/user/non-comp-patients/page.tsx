@@ -43,7 +43,7 @@ const NonCompPatientPage = () => {
         paginationModel={nonCompPatientMethods.paginationModel}
         rowData={calcRowData(nonCompPatientMethods.nonCompPatientData)}
         columns={nonCompPatientColumns}
-        handlePaginationModelChange={handlePaginationModelChange}
+        setPaginationModel={nonCompPatientMethods.setPaginationModel}
       />
     </div>
   )
