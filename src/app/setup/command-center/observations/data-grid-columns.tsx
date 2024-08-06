@@ -1,18 +1,55 @@
 import { ColumnFilterDataGrid } from '@/app/components/filter-column-data-grid'
-import { GridColDef } from '@mui/x-data-grid'
+import { GridCellParams, GridColDef } from '@mui/x-data-grid'
 
 import { FilterList } from '@mui/icons-material'
+import {
+  PatientStatusColors,
+  readingColorStatus,
+} from '@/app/components/observation-card/Observation-card.component'
 
-const StatusCellRender = () => {
-  return <div className={`w-2 h-[90%] bg-green-500`}></div>
+type ReadingColorStatusKeys = keyof typeof readingColorStatus
+
+const StatusCellRender = (params: GridCellParams) => {
+  return (
+    <div
+      className={`w-2 h-[90%] ${
+        PatientStatusColors[params.value as keyof typeof PatientStatusColors]
+      }`}
+    ></div>
+  )
+}
+
+const ResultCellRender = (params: GridCellParams) => {
+  const { value } = params
+  console.log(value)
+  return (
+    <div className='flex flex-wrap text-xs'>
+      {(value as any[]).map((orderable, index) => (
+        <div key={index}>
+          {index === 0 ? '' : <span>&nbsp;|&nbsp;</span>}
+          <span>{orderable.name}</span>
+          &nbsp;
+          <span
+            className={`${
+              readingColorStatus[orderable.status as ReadingColorStatusKeys]
+            }`}
+          >
+            {orderable.numbericValue}
+          </span>
+          &nbsp;
+          <span>{orderable?.unit}</span>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export const observationGridColumns: GridColDef[] = [
   {
-    field: '',
+    field: ' ',
     headerName: '',
-    minWidth: 40,
-    flex: 0.4,
+    minWidth: 50,
+    flex: 0.5,
     type: 'boolean',
     renderCell: StatusCellRender,
   },
@@ -47,7 +84,7 @@ export const observationGridColumns: GridColDef[] = [
   },
   {
     field: 'dateAndTime',
-    headerName: 'PATIENTS',
+    headerName: 'DATE & TIME',
     minWidth: 150,
     flex: 1.5,
     type: 'string',
@@ -55,13 +92,14 @@ export const observationGridColumns: GridColDef[] = [
   {
     field: 'results',
     headerName: 'Results',
-    minWidth: 250,
-    flex: 2.5,
+    minWidth: 300,
+    flex: 3,
+    renderCell: ResultCellRender,
   },
   {
     field: 'status',
     headerName: 'STATUS',
-    minWidth: 150,
+    minWidth: 250,
     flex: 1.5,
     type: 'string',
   },

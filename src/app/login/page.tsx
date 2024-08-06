@@ -56,7 +56,7 @@ const Page = () => {
       method: 'POST',
     })
 
-    console.log(response)
+    // console.log(response)
     // console.log('values', formFields)
   }
 

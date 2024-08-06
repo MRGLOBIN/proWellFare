@@ -1,0 +1,81 @@
+import { GridColDef } from '@mui/x-data-grid'
+
+export const facilityColumns: GridColDef[] = [
+  {
+    field: 'name',
+    headerName: 'Name',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'string',
+  },
+  {
+    field: 'email',
+    headerName: 'Email',
+    minWidth: 200,
+    flex: 2,
+    type: 'string',
+  },
+  {
+    field: 'mobile',
+    headerName: 'Mobile',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'string',
+  },
+  {
+    field: 'fax',
+    headerName: 'Fax',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'number',
+  },
+  {
+    field: 'city',
+    headerName: 'City',
+    minWidth: 100,
+    flex: 1,
+    type: 'string',
+  },
+  {
+    field: 'regDate',
+    headerName: 'Registration Data',
+    minWidth: 150,
+    flex: 1.5,
+    // type: 'date',
+  },
+  {
+    field: 'ptan',
+    headerName: 'PTAN',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'string',
+  },
+  {
+    field: 'address',
+    headerName: 'Address',
+    minWidth: 300,
+    flex: 3,
+    type: 'string',
+  },
+  {
+    field: 'practicePoc',
+    headerName: 'Practice POC',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'string',
+  },
+  {
+    field: 'chiPoc',
+    headerName: 'CHI POC',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'string',
+  },
+  {
+    field: 'tin',
+    headerName: 'TIN',
+    minWidth: 150,
+    flex: 1.5,
+    type: 'string',
+  },
+]

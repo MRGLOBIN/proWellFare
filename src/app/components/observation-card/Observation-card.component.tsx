@@ -34,7 +34,7 @@ const formatDateToTime = (dateNumber: number) => {
 
 //TODO:
 //move it to another file
-const cardStatusColors = {
+export const PatientStatusColors = {
   WARNING: 'bg-[#FC8024]',
   NORMAL: 'bg-[#1BA64D]',
   CRITICAL: 'bg-[#F51217]',
@@ -45,7 +45,7 @@ const cardStatusColors = {
 
 //TODO:
 //move it to another file
-const readingColorStatus = {
+export const readingColorStatus: { [key: string]: string } = {
   WARNING_HIGH: 'text-[#E17624]',
   WARNING_LOW: 'text-[#E37727]',
   NORMAL: 'text-[#1BA64D]',
@@ -76,7 +76,7 @@ const ObservationCard = ({
   return (
     <section className='flex flex-grow  min-w-[300px] bg-[#30343D] rounded-md text-xs m-2 shadow-2xl'>
       <div
-        className={`h-full w-3 rounded-tl-md rounded-bl-md ${cardStatusColors[colorStatus]}`}
+        className={`h-full w-3 rounded-tl-md rounded-bl-md ${PatientStatusColors[colorStatus]}`}
       />
       <div className='flex flex-col justify-between h-full  w-full mx-2 py-2 px-1'>
         <div className='flex justify-between w-full'>

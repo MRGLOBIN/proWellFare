@@ -4,7 +4,7 @@ import { GeneralTable } from '@/app/components/general-table'
 
 import { useEffect, useMemo, useState } from 'react'
 
-import PatientData from '@/app/setup/user/hooks/patient'
+import PatientData from '@/app/setup/user/patients/hooks/patient'
 
 import { gridColumns } from '@/app/setup/user/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
@@ -12,7 +12,7 @@ import { exampleRows } from './delete-response-data'
 import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 import PatientTopBar from '@/app/components/user-top-bar/patient-top-bar.component'
 
-const formatDate = (date: number | null) => {
+export const formatDate = (date: number | null | undefined) => {
   if (!date) {
     return '--'
   }
@@ -24,9 +24,6 @@ const formatDate = (date: number | null) => {
     unformattedDate.getFullYear(), // Year (YYYY)
   ].join('-')
 }
-
-const rowCount = exampleRows.count
-const pages = exampleRows.pages
 
 const exampleRow = exampleRows.records.map(patientData => {
   return {
@@ -187,10 +184,21 @@ const PatientsPage = () => {
 
   const columns = useMemo(() => [...gridColumns], [])
 
+  const handlePaginationModelChange = (
+    newPaginationModel: IPaginationModel
+  ) => {
+    setPaginationModel(newPaginationModel)
+  }
+
   return (
     <>
       <PatientTopBar setSearchQuery={setSearchQuery} />
-      <GeneralTable columns={columns} rowData={rowData} />
+      <GeneralTable
+        columns={columns}
+        rowData={rowData}
+        paginationModel={paginationModel}
+        handlePaginationModelChange={handlePaginationModelChange}
+      />
     </>
   )
 }
