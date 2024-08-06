@@ -145,9 +145,7 @@ const ObservationPage = () => {
           paginationModel={paginationModel}
         />
       ) : (
-        <div className='flex-grow overflow-auto'>
-          <ObservationTable observationData={observationData} />
-        </div>
+        <ObservationTable observationData={observationData} />
       )}
       {gridLayout ? (
         ''

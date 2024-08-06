@@ -23,7 +23,10 @@ const GeneralTable = ({
   handlePaginationModelChange: (newPaginationModel: IPaginationModel) => void
 }) => {
   return (
-    <div className='min-w-[100vw]  max-h-[90%] min-h-[83%] h-1'>
+    <div
+      style={{ minHeight: 'calc(100% - 100px)' }}
+      className='min-w-[100vw]   min-h-[83%] h-1'
+    >
       <CustomisedDataGrid
         columns={columns}
         rows={rowData?.records}
