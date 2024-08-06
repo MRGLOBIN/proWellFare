@@ -31,14 +31,12 @@ const HomeHealthAgencyPage = () => {
   }
 
   return (
-    <div className='h-full'>
-      <GeneralTable
-        paginationModel={homeHealthAgencyMethods.paginationModel}
-        rowData={calcRowData(homeHealthAgencyMethods.HomeHealthAgencyData)}
-        columns={homeHealthAgencyColumns}
-        handlePaginationModelChange={handlePaginationModelChange}
-      />
-    </div>
+    <GeneralTable
+      paginationModel={homeHealthAgencyMethods.paginationModel}
+      rowData={calcRowData(homeHealthAgencyMethods.HomeHealthAgencyData)}
+      columns={homeHealthAgencyColumns}
+      handlePaginationModelChange={handlePaginationModelChange}
+    />
   )
 }
 

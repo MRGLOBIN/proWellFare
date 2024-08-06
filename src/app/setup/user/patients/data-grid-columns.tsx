@@ -11,7 +11,7 @@ import { ColumnFilterDataGrid } from '@/app/components/filter-column-data-grid/'
 
 import { FilterList } from '@mui/icons-material'
 
-const rpmStatusCellRender = ({
+export const rpmStatusCellRender = ({
   row: { rpmStatus },
 }: {
   row: { rpmStatus: keyof typeof ActivationStatus }
@@ -21,11 +21,13 @@ const rpmStatusCellRender = ({
     statusCellBackgroundColourMapping[status] || 'bg-black'
 
   return (
-    <span
-      className={`${backgroundColor} leading-[30px] w-4/5 rounded-3xl flex justify-center`}
-    >
-      {status}
-    </span>
+    <div className='pt-3'>
+      <span
+        className={`${backgroundColor} leading-[30px] w-4/5 rounded-3xl flex justify-center`}
+      >
+        {status}
+      </span>
+    </div>
   )
 }
 
@@ -184,7 +186,6 @@ export const gridColumns: GridColDef[] = [
     flex: 2,
     type: 'string',
     headerClassName: 'bg-[#686868]',
-    sortable: false,
     renderCell: rpmStatusCellRender,
     renderHeader: () =>
       ColumnFilterDataGrid(
@@ -264,8 +265,3 @@ export const gridColumns: GridColDef[] = [
     headerClassName: 'bg-[#686868]',
   },
 ]
-
-//  return (
-//         <div className='flex items-center'>
-//           <strong className='mx-2'>RPM Status</strong> <FilterListIcon />
-//         </div>
