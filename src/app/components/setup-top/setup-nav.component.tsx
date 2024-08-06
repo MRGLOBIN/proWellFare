@@ -100,7 +100,7 @@ const users = [
   {
     icon: GroupIcon,
     title: 'Home Health Agency',
-    link: '/setup/user/homeHealthAgency',
+    link: '/setup/user/home-health-agency',
   },
 ]
 
