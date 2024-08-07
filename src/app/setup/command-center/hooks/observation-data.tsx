@@ -23,7 +23,7 @@ const useObervationData = () => {
     page: number
     per_page: number
   }) => {
-    const base_url = `http://localhost:3000/rms/v1/orderable-value/observations?page=${page}&per_page=${per_page}&search=${search}`
+    const base_url = `http://localhost:3000/rms/v1/orderable-value/observations?page=${page}&per_page=${per_page}&search=${null}`
     return makeRequest(base_url)
   }
 
