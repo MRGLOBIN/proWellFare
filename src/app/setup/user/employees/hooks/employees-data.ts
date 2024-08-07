@@ -27,6 +27,7 @@ const useEmployeeData = () => {
     count: 0,
     records: [],
   })
+  const [searchQuery, setSearchQuery] = useState('')
   const [paginationModel, setPaginationModel] = useState<IPaginationModel>(
     initialPaginationModel
   )
@@ -43,7 +44,7 @@ const useEmployeeData = () => {
         console.error('error while fetching facility data error: ', e)
       }
     })()
-  }, [paginationModel])
+  }, [paginationModel, searchQuery])
 
   const getEmployeeData = async ({
     page,
@@ -52,7 +53,7 @@ const useEmployeeData = () => {
     page: number
     per_page: number
   }) => {
-    const base_url = `http://localhost:3000/rms/v1/employee?page=${page}&per_page=${per_page}&search=${null}`
+    const base_url = `http://localhost:3000/rms/v1/employee?page=${page}&per_page=${per_page}&search=${searchQuery}`
     return makeRequest(base_url)
   }
 
@@ -60,6 +61,7 @@ const useEmployeeData = () => {
     employeeData,
     paginationModel,
     setPaginationModel,
+    setSearchQuery,
   }
 
   return { employeeMethods }

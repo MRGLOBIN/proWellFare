@@ -27,6 +27,7 @@ const useGuardianData = () => {
     count: 0,
     records: [],
   })
+  const [searchQuery, setSearchQuery] = useState('')
   const [paginationModel, setPaginationModel] = useState<IPaginationModel>(
     initialPaginationModel
   )
@@ -43,7 +44,7 @@ const useGuardianData = () => {
         console.error('error while fetching facility data error: ', e)
       }
     })()
-  }, [paginationModel])
+  }, [paginationModel, searchQuery])
 
   const getGuardianData = async ({
     page,
@@ -52,17 +53,18 @@ const useGuardianData = () => {
     page: number
     per_page: number
   }) => {
-    const base_url = `http://localhost:3000/rms/v1/guardian?page=${page}&per_page=${per_page}&search=${null}`
+    const base_url = `http://localhost:3000/rms/v1/guardian?page=${page}&per_page=${per_page}&search=${searchQuery}`
     return makeRequest(base_url)
   }
 
-  const employeeMethods = {
+  const guardianMethods = {
     guardianData,
     paginationModel,
     setPaginationModel,
+    setSearchQuery,
   }
 
-  return { employeeMethods }
+  return { guardianMethods }
 }
 
 export default useGuardianData

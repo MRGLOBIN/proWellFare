@@ -4,6 +4,7 @@ import { GeneralTable } from '@/app/components/general-table'
 import useFacilityData from '@/app/setup/user/facility/hooks/facility-data'
 import { formatDate, IPaginationModel } from '../patients/page'
 import { facilityColumns } from './data-grid-columns'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 const calcRowData = (data: { count: number; records: Facility[] }) => {
   const newData = data.records?.map((record: Facility, index: number) => ({
@@ -30,21 +31,23 @@ const calcRowData = (data: { count: number; records: Facility[] }) => {
 const PracticePage = () => {
   const { facuiltyMethods } = useFacilityData()
 
-  const handlePaginationModelChange = (
-    newPaginationModel: IPaginationModel
-  ) => {
-    facuiltyMethods.setPaginationModel(newPaginationModel)
-  }
-
   return (
-    <div className='h-full'>
+    <>
+      <GeneralTableTopBar
+        title='Practice'
+        isTitleIcon
+        isSearchField
+        isAddIcon
+        isRefreshIcon
+        setSearchQuery={facuiltyMethods.setSearchQuery}
+      />
       <GeneralTable
         paginationModel={facuiltyMethods.paginationModel}
         rowData={calcRowData(facuiltyMethods.facilityData)}
         columns={facilityColumns}
         setPaginationModel={facuiltyMethods.setPaginationModel}
       />
-    </div>
+    </>
   )
 }
 

@@ -5,6 +5,7 @@ import useFacilityData from '@/app/setup/user/facility/hooks/facility-data'
 import { IPaginationModel } from '../patients/page'
 import { employeesColumn } from './data-grid-columns'
 import useEmployeeData from './hooks/employees-data'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 // TODO: move this funciton
 const replaceUnderScore = (value: string | null | undefined) => {
@@ -44,14 +45,22 @@ const PracticePage = () => {
   const { employeeMethods } = useEmployeeData()
 
   return (
-    <div className='h-full'>
+    <>
+      <GeneralTableTopBar
+        title='Employees'
+        isTitleIcon
+        isSearchField
+        isRefreshIcon
+        isAddIcon
+        setSearchQuery={employeeMethods.setSearchQuery}
+      />
       <GeneralTable
         paginationModel={employeeMethods.paginationModel}
         rowData={calcRowData(employeeMethods.employeeData)}
         columns={employeesColumn}
         setPaginationModel={employeeMethods.setPaginationModel}
       />
-    </div>
+    </>
   )
 }
 

@@ -4,6 +4,7 @@ import { GeneralTable } from '@/app/components/general-table'
 import useHomeHealthAgencyData from '@/app/setup/user/home-health-agency/hooks/home-health-agency-data'
 import { IPaginationModel } from '../patients/page'
 import { homeHealthAgencyColumns } from './data-grid-columns'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 const calcRowData = (data: { count: number; records: IHomeHealthAgency[] }) => {
   const newData = data.records?.map((record, index: number) => ({
@@ -24,19 +25,23 @@ const calcRowData = (data: { count: number; records: IHomeHealthAgency[] }) => {
 const HomeHealthAgencyPage = () => {
   const { homeHealthAgencyMethods } = useHomeHealthAgencyData()
 
-  const handlePaginationModelChange = (
-    newPaginationModel: IPaginationModel
-  ) => {
-    homeHealthAgencyMethods.setPaginationModel(newPaginationModel)
-  }
-
   return (
-    <GeneralTable
-      paginationModel={homeHealthAgencyMethods.paginationModel}
-      rowData={calcRowData(homeHealthAgencyMethods.HomeHealthAgencyData)}
-      columns={homeHealthAgencyColumns}
-      setPaginationModel={homeHealthAgencyMethods.setPaginationModel}
-    />
+    <>
+      <GeneralTableTopBar
+        title='Home Health Agency'
+        isTitleIcon
+        isSearchField
+        isAddIcon
+        isRefreshIcon
+        setSearchQuery={homeHealthAgencyMethods.setSearchQuery}
+      />
+      <GeneralTable
+        paginationModel={homeHealthAgencyMethods.paginationModel}
+        rowData={calcRowData(homeHealthAgencyMethods.HomeHealthAgencyData)}
+        columns={homeHealthAgencyColumns}
+        setPaginationModel={homeHealthAgencyMethods.setPaginationModel}
+      />
+    </>
   )
 }
 

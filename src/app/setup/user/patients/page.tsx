@@ -9,8 +9,8 @@ import PatientData from '@/app/setup/user/patients/hooks/patient'
 import { gridColumns } from '@/app/setup/user/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
 
-import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
-import PatientTopBar from '@/app/components/user-top-bar/patient-top-bar.component'
+// import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 export const formatDate = (date: number | null | undefined) => {
   if (!date) {
@@ -128,13 +128,6 @@ const calcRowsData = (data: { records: any[]; count: any }) => {
 }
 
 // TODO: move me
-const customToolBar = () => (
-  <GridToolbarContainer sx={{ color: 'white' }}>
-    <GridToolbarExport />
-  </GridToolbarContainer>
-)
-
-// TODO: move me
 // inteface for pagination model
 export interface IPaginationModel {
   page: number
@@ -186,7 +179,15 @@ const PatientsPage = () => {
 
   return (
     <>
-      <PatientTopBar setSearchQuery={setSearchQuery} />
+      <GeneralTableTopBar
+        title='Patients'
+        isTitleIcon
+        isSearchField
+        isAddIcon
+        isRefreshIcon
+        isSettingsIcon
+        setSearchQuery={setSearchQuery}
+      />
       <GeneralTable
         columns={columns}
         rowData={rowData}

@@ -13,6 +13,7 @@ import {
   initialPaginationModel,
   IPaginationModel,
 } from '../../user/patients/page'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 // TODO:
 // move me
@@ -138,12 +139,15 @@ const ObservationPage = () => {
         />
       </div>
       {gridLayout ? (
-        <GeneralTable
-          columns={observationGridColumns}
-          rowData={calcRowData(observationData)}
-          setPaginationModel={setPaginationModel}
-          paginationModel={paginationModel}
-        />
+        <>
+          {/* <GeneralTableTopBar /> */}
+          <GeneralTable
+            columns={observationGridColumns}
+            rowData={calcRowData(observationData)}
+            setPaginationModel={setPaginationModel}
+            paginationModel={paginationModel}
+          />
+        </>
       ) : (
         <ObservationTable observationData={observationData} />
       )}

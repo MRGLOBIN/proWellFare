@@ -4,6 +4,7 @@ import { GeneralTable } from '@/app/components/general-table'
 import useGuardianData from '@/app/setup/user/guardians/hooks/guaridan-data'
 import { IPaginationModel } from '../patients/page'
 import { guaridanColumn } from './data-grid-columns'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 const calcRowData = (data: { count: number; records: User[] }) => {
   const newData = data.records?.map((record, index: number) => ({
@@ -21,23 +22,25 @@ const calcRowData = (data: { count: number; records: User[] }) => {
 }
 
 const GuardianPage = () => {
-  const { employeeMethods } = useGuardianData()
-
-  const handlePaginationModelChange = (
-    newPaginationModel: IPaginationModel
-  ) => {
-    employeeMethods.setPaginationModel(newPaginationModel)
-  }
+  const { guardianMethods } = useGuardianData()
 
   return (
-    <div className='h-full'>
-      <GeneralTable
-        paginationModel={employeeMethods.paginationModel}
-        rowData={calcRowData(employeeMethods.guardianData)}
-        columns={guaridanColumn}
-        setPaginationModel={employeeMethods.setPaginationModel}
+    <>
+      <GeneralTableTopBar
+        title='Support Persons'
+        isTitleIcon
+        isSearchField
+        isAddIcon
+        isRefreshIcon
+        setSearchQuery={guardianMethods.setSearchQuery}
       />
-    </div>
+      <GeneralTable
+        paginationModel={guardianMethods.paginationModel}
+        rowData={calcRowData(guardianMethods.guardianData)}
+        columns={guaridanColumn}
+        setPaginationModel={guardianMethods.setPaginationModel}
+      />
+    </>
   )
 }
 

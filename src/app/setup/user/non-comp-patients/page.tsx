@@ -4,6 +4,7 @@ import { GeneralTable } from '@/app/components/general-table'
 import useNonCompPatientData from '@/app/setup/user/non-comp-patients/hooks/non-comp-patients-data'
 import { IPaginationModel } from '../patients/page'
 import { nonCompPatientColumns } from './data-grid-columns'
+import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
 
 const calcRowData = (data: {
   count: number
@@ -31,21 +32,23 @@ const calcRowData = (data: {
 const NonCompPatientPage = () => {
   const { nonCompPatientMethods } = useNonCompPatientData()
 
-  const handlePaginationModelChange = (
-    newPaginationModel: IPaginationModel
-  ) => {
-    nonCompPatientMethods.setPaginationModel(newPaginationModel)
-  }
-
   return (
-    <div className='h-full'>
+    <>
+      <GeneralTableTopBar
+        title='Non-Compliant Patients'
+        isTitleIcon
+        isSearchField
+        isRefreshIcon
+        isSettingsIcon
+        setSearchQuery={nonCompPatientMethods.setSearchQuery}
+      />
       <GeneralTable
         paginationModel={nonCompPatientMethods.paginationModel}
         rowData={calcRowData(nonCompPatientMethods.nonCompPatientData)}
         columns={nonCompPatientColumns}
         setPaginationModel={nonCompPatientMethods.setPaginationModel}
       />
-    </div>
+    </>
   )
 }
 

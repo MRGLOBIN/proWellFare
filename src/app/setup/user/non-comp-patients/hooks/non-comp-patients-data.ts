@@ -27,6 +27,7 @@ const useNonCompPatientData = () => {
     count: 0,
     records: [],
   })
+  const [searchQuery, setSearchQuery] = useState('')
   const [paginationModel, setPaginationModel] = useState<IPaginationModel>(
     initialPaginationModel
   )
@@ -43,7 +44,7 @@ const useNonCompPatientData = () => {
         console.error('error while fetching facility data error: ', e)
       }
     })()
-  }, [paginationModel])
+  }, [paginationModel, searchQuery])
 
   const getNonCompPatient = async ({
     page,
@@ -52,7 +53,7 @@ const useNonCompPatientData = () => {
     page: number
     per_page: number
   }) => {
-    const base_url = `http://localhost:3000/rms/v1/patient-new/get-non-compliant-patients?page=${page}&per_page=${per_page}&search=${null}`
+    const base_url = `http://localhost:3000/rms/v1/patient-new/get-non-compliant-patients?page=${page}&per_page=${per_page}&search=${searchQuery}`
     return makeRequest(base_url)
   }
 
@@ -60,6 +61,7 @@ const useNonCompPatientData = () => {
     nonCompPatientData,
     paginationModel,
     setPaginationModel,
+    setSearchQuery,
   }
 
   return { nonCompPatientMethods }
