@@ -6,6 +6,7 @@ import { IPaginationModel } from '../patients/page'
 import { employeesColumn } from './data-grid-columns'
 import useEmployeeData from './hooks/employees-data'
 import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { DialogueModal } from '@/app/components/dialogue-modal'
 
 // TODO: move this funciton
 const replaceUnderScore = (value: string | null | undefined) => {
@@ -60,6 +61,7 @@ const PracticePage = () => {
         columns={employeesColumn}
         setPaginationModel={employeeMethods.setPaginationModel}
       />
+      <DialogueModal></DialogueModal>
     </>
   )
 }

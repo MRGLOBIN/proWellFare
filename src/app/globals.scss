@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
 .MuiPaper-root {
-  background-color: #686868;
-  color: #d2d2d2;
+  // background-color: #686868;
+  // color: #d2d2d2;
   //   .MuiList-root {
   //     // background-color: red;
   //     .MuiSvgIcon-root {

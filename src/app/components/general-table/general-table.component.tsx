@@ -24,10 +24,7 @@ const GeneralTable = ({
 
   return (
     <>
-      <div
-        style={{ minHeight: 'calc(100% - 100px)' }}
-        className='min-w-[100vw] h-1'
-      >
+      <div style={{ maxHeight: 'calc(100vh - 22vh)' }} className='h-full'>
         <CustomisedDataGrid
           columns={columns}
           rows={rowData?.records}
@@ -49,7 +46,7 @@ const GeneralTable = ({
             top: param.isFirstVisible ? 2 : 0,
             bottom: param.isLastVisible ? 2 : 0,
           })}
-          className='m-4 bg-[#2A2D38] text-white text-[13px]'
+          className='bg-[#2A2D38] text-white text-[13px]'
           pageSizeOptions={[30, 50, 100]}
           paginationModel={paginationModel}
           onPaginationModelChange={handlePaginationModelChange}
