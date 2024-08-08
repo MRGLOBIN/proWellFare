@@ -6,14 +6,14 @@ import { Paginator } from '@/app/ui/custom-components'
 import { ObservationHeader } from '@/app/components/observation-header'
 
 import ObservationTable from '@/app/components/observation-table/observation-table.component'
-import { GeneralTable } from '@/app/components/general-table'
+import { GeneralTable } from '@/app/components/generalTable/general-table-body'
 import { observationGridColumns } from './data-grid-columns'
 import {
   formatDate,
   initialPaginationModel,
   IPaginationModel,
 } from '../../user/patients/page'
-import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { GeneralTableTopBar } from '@/app/components/generalTable/general-table-top-bar'
 
 // TODO:
 // move me

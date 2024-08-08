@@ -1,7 +1,7 @@
 'use client'
 
-import { GeneralTable } from '@/app/components/general-table'
-import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { GeneralTable } from '@/app/components/generalTable'
+import { GeneralTableTopBar } from '@/app/components/generalTable/general-table-top-bar'
 import Link from 'next/link'
 
 const masterLinks = [
@@ -52,17 +52,7 @@ const MasterSettingsLayout = () => {
         </div>
       </section>
       <section className='bg-secondary w-full ml-2 mr-1 rounded flex-1'>
-        <div>
-          <GeneralTableTopBar title='hello world' />
-          <div className='m-2 h-full'>
-            <GeneralTable
-              rowData={{ count: 0, records: [] }}
-              columns={[{ headerName: 'hello', field: 'asd' }]}
-              paginationModel={{ page: 0, pageSize: 0 }}
-              setPaginationModel={() => {}}
-            />
-          </div>
-        </div>
+        <div></div>
       </section>
     </article>
   )

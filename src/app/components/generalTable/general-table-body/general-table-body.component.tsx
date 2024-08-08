@@ -5,7 +5,7 @@ import { CustomisedDataGrid } from '@/app/ui/custom-components'
 // import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 import { GridColDef } from '@mui/x-data-grid'
 
-const GeneralTable = ({
+const GeneralTableBody = ({
   columns,
   rowData,
   setPaginationModel,
@@ -62,7 +62,7 @@ const GeneralTable = ({
   )
 }
 
-export default GeneralTable
+export default GeneralTableBody
 
 // const customToolBar = () => (
 //   <GridToolbarContainer sx={{ color: 'white' }}>

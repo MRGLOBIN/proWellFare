@@ -1,10 +1,10 @@
 'use client'
 
-import { GeneralTable } from '@/app/components/general-table'
+import { GeneralTable } from '@/app/components/generalTable/general-table-body'
 import useGuardianData from '@/app/setup/user/guardians/hooks/guaridan-data'
 import { IPaginationModel } from '../patients/page'
 import { guaridanColumn } from './data-grid-columns'
-import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { GeneralTableTopBar } from '@/app/components/generalTable/general-table-top-bar'
 
 const calcRowData = (data: { count: number; records: User[] }) => {
   const newData = data.records?.map((record, index: number) => ({

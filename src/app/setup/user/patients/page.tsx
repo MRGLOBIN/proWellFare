@@ -1,6 +1,6 @@
 'use client'
 
-import { GeneralTable } from '@/app/components/general-table'
+import { GeneralTable } from '@/app/components/generalTable/general-table-body'
 
 import { useEffect, useMemo, useState } from 'react'
 
@@ -10,7 +10,7 @@ import { gridColumns } from '@/app/setup/user/patients/data-grid-columns'
 import { exampleRows } from './delete-response-data'
 
 // import { GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
-import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { GeneralTableTopBar } from '@/app/components/generalTable/general-table-top-bar'
 
 export const formatDate = (date: number | null | undefined) => {
   if (!date) {

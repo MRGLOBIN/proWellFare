@@ -1,11 +1,11 @@
 'use client'
 
-import { GeneralTable } from '@/app/components/general-table'
+import { GeneralTable } from '@/app/components/generalTable/general-table-body'
 import useFacilityData from '@/app/setup/user/facility/hooks/facility-data'
 import { IPaginationModel } from '../patients/page'
 import { employeesColumn } from './data-grid-columns'
 import useEmployeeData from './hooks/employees-data'
-import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { GeneralTableTopBar } from '@/app/components/generalTable/general-table-top-bar'
 import { DialogueModal } from '@/app/components/dialogue-modal'
 
 // TODO: move this funciton

@@ -1,10 +1,10 @@
 'use client'
 
-import { GeneralTable } from '@/app/components/general-table'
+import { GeneralTable } from '@/app/components/generalTable/general-table-body'
 import useNonCompPatientData from '@/app/setup/user/non-comp-patients/hooks/non-comp-patients-data'
 import { IPaginationModel } from '../patients/page'
 import { nonCompPatientColumns } from './data-grid-columns'
-import { GeneralTableTopBar } from '@/app/components/general-table-top-bar'
+import { GeneralTableTopBar } from '@/app/components/generalTable/general-table-top-bar'
 
 const calcRowData = (data: {
   count: number
